@@ -44,9 +44,6 @@ export default function Home() {
                     FreeForm
                   </a>
                 </li>
-                <li className="nav-item">
-                    SelectAccounts
-                </li>
               </ul>
             </div>
              <ul className="navbar-nav ml-auto">
