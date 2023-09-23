@@ -1,247 +1,63 @@
-@use "sass:math";
-//@import "~react-datepicker/dist/react-datepicker.css";
-// math.div in sass
-$base-line-height: 24px;
-$white: rgb(255, 255, 255);
-$off-white: rgba($white, 0.2);
-$spin-duration: 1s;
-$pulse-duration: 750ms;
-
-textarea {
-  height: 60vh;
-  width: 100%;
-}
+/* Styles for the navbar */
 
 .navbar {
-  align-items: center;
-  justify-content: space-between;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
-img {
-  max-height: 75px;
-  max-width: 75px;
-  height: auto;
-  width: auto;
+.navbar-toggler {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-html {
-  height: 100%;
+.navbar-toggler-icon {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    display: block;
+    margin: 4px auto;
 }
 
-body {
-  background: linear-gradient(to left, #9965f4, white);
-  margin-left: 10px;
-  margin-right: 10px;
+.navbar-collapse {
+    display: flex;
+    flex-direction: row;
 }
 
-table {
-  border: 1px solid black;
-  font-size: 0.6rem;
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
 }
 
-th {
-  background-color: #6200ee;
-  color: #bb96fc;
+.nav-item {
+    margin: 0 10px;
 }
 
-td {
-  color: #6200ee;
+.nav-link {
+    text-decoration: none;
+    color: #333;
 }
 
-th,
-td {
-  text-transform: uppercase;
-  font-family: sans-serif;
-  width: 6rem;
-}
+@media (max-width: 768px) {
+    .navbar-toggler {
+        display: block;
+    }
 
-tr:nth-child(odd) {
-  background-color: #d4bff9;
-}
+    .navbar-nav {
+    }
 
-tr:nth-child(even) {
-  background-color: #bb96fc;
-}
+    .nav-item {
+        margin: 10px 0;
+    }
 
-tr:hover {
-  background-color: #efe5fd;
+    .navbar-nav.show {
+        display: flex;
+    }
 }
-
-tr:hover td {
-  background-color: transparent;
-}
-
-.right {
-  text-align: right;
-  width: 100%;
-  float: right;
-}
-
-.form-icon {
-  font-size: 14px;
-}
-
-.login {
-  font-family: Comfortaa, cursive;
-  margin: auto;
-  padding: 8% 0 0;
-  width: 360px;
-}
-
-.form {
-  background: #ffffff;
-  border-radius: 10px;
-  margin: 0 auto 100px;
-  max-width: 360px;
-  padding: 45px;
-  text-align: center;
-}
-
-.form input {
-  background: #f2f2f2;
-  border: 0;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-family: Comfortaa, cursive;
-  font-size: 14px;
-  margin: 0 0 15px;
-  outline: 0;
-  padding: 15px;
-  width: 100%;
-}
-
-.form input:focus {
-  background: #dbdbdb;
-}
-
-.form button {
-  background: #4b6cb7;
-  border: 0;
-  border-radius: 5px;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: Comfortaa, cursive;
-  font-size: 14px;
-  outline: 0;
-  padding: 15px;
-  text-transform: uppercase;
-  //transition: all 0.3 ease;
-  width: 100%;
-}
-
-.form button:active {
-  background: #395591;
-}
-
-.form span {
-  color: #4b6cb7;
-  font-size: 75px;
-}
-
-.displayed {
-  //display: flex;
-  justify-content: space-between;
-}
-
-.not-displayed {
-  display: none;
-}
-
-.select-formatting {
-  width: 25rem;
-}
-
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.lds-roller {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-roller div {
-  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  transform-origin: 40px 40px;
-}
-.lds-roller div:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fff;
-  margin: -4px 0 0 -4px;
-}
-.lds-roller div:nth-child(1) {
-  animation-delay: -0.036s;
-}
-.lds-roller div:nth-child(1):after {
-  top: 63px;
-  left: 63px;
-}
-.lds-roller div:nth-child(2) {
-  animation-delay: -0.072s;
-}
-.lds-roller div:nth-child(2):after {
-  top: 68px;
-  left: 56px;
-}
-.lds-roller div:nth-child(3) {
-  animation-delay: -0.108s;
-}
-.lds-roller div:nth-child(3):after {
-  top: 71px;
-  left: 48px;
-}
-.lds-roller div:nth-child(4) {
-  animation-delay: -0.144s;
-}
-.lds-roller div:nth-child(4):after {
-  top: 72px;
-  left: 40px;
-}
-.lds-roller div:nth-child(5) {
-  animation-delay: -0.18s;
-}
-.lds-roller div:nth-child(5):after {
-  top: 71px;
-  left: 32px;
-}
-.lds-roller div:nth-child(6) {
-  animation-delay: -0.216s;
-}
-.lds-roller div:nth-child(6):after {
-  top: 68px;
-  left: 24px;
-}
-.lds-roller div:nth-child(7) {
-  animation-delay: -0.252s;
-}
-.lds-roller div:nth-child(7):after {
-  top: 63px;
-  left: 17px;
-}
-.lds-roller div:nth-child(8) {
-  animation-delay: -0.288s;
-}
-.lds-roller div:nth-child(8):after {
-  top: 56px;
-  left: 12px;
-}
-@keyframes lds-roller {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-//removed extra on 4/1/2022
-// vim: set ft=css:

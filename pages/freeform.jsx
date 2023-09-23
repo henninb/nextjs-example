@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Payments() {
+export default function FreeForm() {
   return (
     <div>
-      <h1>Payments</h1>
+      <h1>FreeForm</h1>
     </div>
   );
 }

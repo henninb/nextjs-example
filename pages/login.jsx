@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Payments() {
+export default function Login() {
   return (
     <div>
-      <h1>Payments</h1>
+      <h1>Login</h1>
     </div>
   );
 }
