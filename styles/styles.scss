@@ -74,3 +74,36 @@
         display: flex;
     }
 }
+
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 14px;
+  background-color: var(--dracula-background);
+  color: var(--dracula-foreground);
+}
+
+th, td {
+  padding: 8px 12px;
+  border: 1px solid var(--dracula-foreground);
+}
+
+th {
+  background-color: var(--dracula-selection);
+}
+
+/* Alternating Row Colors (including header row) */
+tr:nth-child(even) {
+  background-color: var(--dracula-comment);
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--dracula-pink); /* Different Dracula color */
+}
+
+tbody tr:hover {
+  background-color: var(--dracula-cyan); /* Color when hovering */
+}
