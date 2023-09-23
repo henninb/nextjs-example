@@ -1,7 +1,19 @@
-/* Styles for the navbar */
+:root {
+    --dracula-bg: #282a36;
+    --dracula-fg: #f8f8f2;
+    --dracula-comment: #6272a4;
+    --dracula-cyan: #8be9fd;
+    --dracula-green: #50fa7b;
+    --dracula-orange: #ffb86c;
+    --dracula-pink: #ff79c6;
+    --dracula-purple: #bd93f9;
+    --dracula-red: #ff5555;
+    --dracula-yellow: #f1fa8c;
+}
 
+/* Styles for the navbar */
 .navbar {
-    background-color: #f8f9fa;
+    background-color: var(--dracula-bg); /* Dracula background color */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,7 +30,7 @@
 .navbar-toggler-icon {
     width: 30px;
     height: 3px;
-    background-color: #333;
+    background-color: var(--dracula-fg); /* Dracula foreground color */
     display: block;
     margin: 4px auto;
 }
@@ -42,9 +54,10 @@
 
 .nav-link {
     text-decoration: none;
-    color: #333;
+    color: var(--dracula-fg); /* Dracula foreground color */
 }
 
+/* Media query for responsiveness */
 @media (max-width: 768px) {
     .navbar-toggler {
         display: block;
