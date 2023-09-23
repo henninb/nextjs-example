@@ -11,13 +11,29 @@
     --dracula-yellow: #f1fa8c;
 }
 
+/* General Styles */
+body {
+    background-color: var(--dracula-bg);
+    color: var(--dracula-fg);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 /* Styles for the navbar */
 .navbar {
-    background-color: var(--dracula-bg); /* Dracula background color */
+    background-color: var(--dracula-bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    border-bottom: 1px solid var(--dracula-comment);
 }
 
 .navbar-toggler {
@@ -30,7 +46,7 @@
 .navbar-toggler-icon {
     width: 30px;
     height: 3px;
-    background-color: var(--dracula-fg); /* Dracula foreground color */
+    background-color: var(--dracula-fg);
     display: block;
     margin: 4px auto;
 }
@@ -54,7 +70,7 @@
 
 .nav-link {
     text-decoration: none;
-    color: var(--dracula-fg); /* Dracula foreground color */
+    color: var(--dracula-fg);
 }
 
 /* Media query for responsiveness */
@@ -75,35 +91,38 @@
     }
 }
 
-
 /* Table Styles */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-  font-size: 14px;
-  background-color: var(--dracula-background);
-  color: var(--dracula-foreground);
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 14px;
+    background-color: var(--dracula-bg);
+    color: var(--dracula-fg);
+    border: 1px solid var(--dracula-comment);
+    text-transform: uppercase;
 }
 
 th, td {
-  padding: 8px 12px;
-  border: 1px solid var(--dracula-foreground);
+    padding: 8px 12px;
+    border: 1px solid var(--dracula-comment);
 }
 
 th {
-  background-color: var(--dracula-selection);
+    background-color: var(--dracula-bg);
+    color: var(--dracula-fg);
 }
 
 /* Alternating Row Colors (including header row) */
 tr:nth-child(even) {
-  background-color: var(--dracula-comment);
+    background-color: var(--dracula-comment);
 }
 
 tbody tr:nth-child(odd) {
-  background-color: var(--dracula-pink); /* Different Dracula color */
+    background-color: var(--dracula-pink);
 }
 
 tbody tr:hover {
-  background-color: var(--dracula-cyan); /* Color when hovering */
+    background-color: var(--dracula-cyan);
+    color: var(--dracula-bg); /* Text color on hover */
 }

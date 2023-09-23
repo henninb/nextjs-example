@@ -87,7 +87,6 @@ const SpreadsheetRow = ({ rowData }) => {
       <td>{image}</td>
       <td>
         <button>Delete</button>
-        <button>Edit</button>
       </td>
     </tr>
   );
