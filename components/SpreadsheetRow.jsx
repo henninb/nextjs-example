@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const SpreadsheetRow = ({ rowData }) => {
-
+export default function SpreadsheetRow({ rowData }) {
   const [editableFields, setEditableFields] = useState({});
+  const [content, setContent] = useState({ ...rowData });
 
   const handleFieldClick = (fieldName) => {
     setEditableFields({ ...editableFields, [fieldName]: true });
@@ -12,6 +12,10 @@ const SpreadsheetRow = ({ rowData }) => {
     setEditableFields({ ...editableFields, [fieldName]: false });
   };
 
+  const handleContentChange = (fieldName, newValue) => {
+    setContent({ ...content, [fieldName]: newValue });
+  };
+
   const formatCurrency = (amount) => {
     return amount.toLocaleString('en-US', {
       style: 'currency',
@@ -19,77 +23,36 @@ const SpreadsheetRow = ({ rowData }) => {
     });
   };
 
-  const {
-    transactionDate,
-    description,
-    category,
-    amount,
-    transactionState,
-    type,
-    reoccurringType,
-    notes,
-    image,
-  } = rowData;
+  const renderEditableCell = (fieldName, displayValue) => {
+    return editableFields[fieldName] ? (
+      <td onBlur={() => handleFieldBlur(fieldName)}>
+        <input
+          type="text"
+          value={content[fieldName]}
+          onChange={(e) => handleContentChange(fieldName, e.target.value)}
+        />
+      </td>
+    ) : (
+      <td onClick={() => handleFieldClick(fieldName)}>
+        {content[fieldName] || displayValue}
+      </td>
+    );
+  };
 
   return (
     <tr>
-
-      <td
-        onClick={() => handleFieldClick('date')}
-        onBlur={() => handleFieldBlur('date')}
-        contentEditable={editableFields['date']}
-      >
-        {transactionDate}
-      </td>
-
-      <td
-        onClick={() => handleFieldClick('description')}
-        onBlur={() => handleFieldBlur('description')}
-        contentEditable={editableFields['description']}
-      >
-        {description}
-      </td>
-
-      <td
-        onClick={() => handleFieldClick('category')}
-        onBlur={() => handleFieldBlur('category')}
-        contentEditable={editableFields['category']}
-      >
-        {category}
-      </td>
-
-      <td
-        onClick={() => handleFieldClick('amount')}
-        onBlur={() => handleFieldBlur('amount')}
-        contentEditable={editableFields['amount']}
-      >
-        {formatCurrency(amount)}
-      </td>
-
-      <td
-        onClick={() => handleFieldClick('state')}
-        onBlur={() => handleFieldBlur('state')}
-        contentEditable={editableFields['state']}
-      >
-        {transactionState}
-      </td>
-
-      <td
-        onClick={() => handleFieldClick('type')}
-        onBlur={() => handleFieldBlur('type')}
-        contentEditable={editableFields['type']}
-      >
-        {type}
-      </td>
-
-      <td>{reoccurringType}</td>
-      <td>{notes}</td>
-      <td>{image}</td>
+      {renderEditableCell('date', rowData.transactionDate)}
+      {renderEditableCell('description', rowData.description)}
+      {renderEditableCell('category', rowData.category)}
+      {renderEditableCell('amount', formatCurrency(rowData.amount))}
+      {renderEditableCell('state', rowData.transactionState)}
+      {renderEditableCell('type', rowData.type)}
+      <td>{rowData.reoccurringType}</td>
+      <td>{rowData.notes}</td>
+      <td>{rowData.image}</td>
       <td>
         <button>Delete</button>
       </td>
     </tr>
   );
-};
-
-export default SpreadsheetRow;
+}
