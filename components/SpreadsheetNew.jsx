@@ -18,10 +18,6 @@ export default function SpreadsheetNew({ data }) {
         return [...prevSelectedRows, rowId];
       }
     });
-
-    // Log the selected row data to the console
-    const selectedRowData = data.find((row) => row.id === rowId);
-    console.log('Selected Row:', selectedRowData);
   };
 
   const handleFieldClick = (fieldName) => {
@@ -61,25 +57,34 @@ export default function SpreadsheetNew({ data }) {
 
   const renderEditableCell = (fieldName, displayValue, dataType, rowId) => {
     const isEditing = editableField === fieldName;
+    const isSelected = selectedRows.includes(rowId);
 
     return (
       <td
         onClick={() => handleFieldClick(fieldName)}
-        className={selectedRows.includes(rowId) ? 'selected' : ''}
+        className={isEditing ? 'editing' : ''}
       >
-        {isEditing ? (
+        {fieldName === 'selected' ? (
           <input
-            type={dataType === 'currency' || dataType === 'date' ? 'text' : 'text'}
-            value={content[fieldName] || ''}
-            onChange={(e) => handleContentChange(fieldName, e.target.value, dataType)}
-            onBlur={() => handleFieldBlur()}
-            onKeyDown={(e) => handleInputKeyDown(fieldName, e, dataType)}
+            type="checkbox"
+            checked={isSelected}
+            onChange={() => handleRowCheckboxChange(rowId)}
           />
         ) : (
-          content[fieldName] || displayValue
+          fieldName === 'selected' ? (isSelected ? 'x' : null) : (content[fieldName] || displayValue)
         )}
       </td>
     );
+  };
+
+  const handleReset = () => {
+    if (selectedRows.length === 1) {
+      console.log(`Selected row for reset: ${selectedRows[0]}`);
+    } else if (selectedRows.length > 1) {
+      console.log(`Selected rows for reset: ${selectedRows.join(', ')}`);
+    } else {
+      console.log('No rows selected for reset');
+    }
   };
 
   const handleDelete = () => {
@@ -93,7 +98,13 @@ export default function SpreadsheetNew({ data }) {
   };
 
   const handleMove = () => {
-    // Implement the logic to move selected rows
+    if (selectedRows.length === 1) {
+      console.log(`Selected row for moving: ${selectedRows[0]}`);
+    } else if (selectedRows.length > 1) {
+      console.log(`Selected rows for moving: ${selectedRows.join(', ')}`);
+    } else {
+      console.log('No rows selected for moving');
+    }
   };
 
   return (
@@ -102,6 +113,7 @@ export default function SpreadsheetNew({ data }) {
         <div className="button-container">
           <button onClick={handleDelete}>Delete</button>
           <button onClick={handleMove}>Move</button>
+          <button onClick={handleReset}>Reset</button>
         </div>
       )}
       <table>
@@ -121,21 +133,15 @@ export default function SpreadsheetNew({ data }) {
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={selectedRows.includes(row.id)}
-                  onChange={() => handleRowCheckboxChange(row.id)}
-                />
-              </td>
-              {renderEditableCell('date', row.transactionDate, 'date', row.id)}
-              {renderEditableCell('description', row.description, 'text', row.id)}
-              {renderEditableCell('category', row.category, 'text', row.id)}
-              {renderEditableCell('amount', formatCurrency(row.amount), 'currency', row.id)}
-              {renderEditableCell('state', row.transactionState, 'text', row.id)}
-              {renderEditableCell('type', row.transactionType, 'text', row.id)}
-              {renderEditableCell('recurring', row.recurringType, 'text', row.id)}
-              {renderEditableCell('notes', row.notes, 'text', row.id)}
+              {renderEditableCell('selected', null, null, row.guid)}
+              {renderEditableCell('date', row.transactionDate, 'date', row.guid)}
+              {renderEditableCell('description', row.description, 'text', row.guid)}
+              {renderEditableCell('category', row.category, 'text', row.guid)}
+              {renderEditableCell('amount', formatCurrency(row.amount), 'currency', row.guid)}
+              {renderEditableCell('state', row.transactionState, 'text', row.guid)}
+              {renderEditableCell('type', row.transactionType, 'text', row.guid)}
+              {renderEditableCell('recurring', row.recurringType, 'text', row.guid)}
+              {renderEditableCell('notes', row.notes, 'text', row.guid)}
             </tr>
           ))}
         </tbody>
