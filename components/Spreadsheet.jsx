@@ -2,7 +2,6 @@ import React from 'react';
 import SpreadsheetRow from './SpreadsheetRow'
 
 export default function Spreadsheet({ data }) {
-//const Spreadsheet = ({ data }) => {
   return (
     <table>
       <thead>
@@ -26,5 +25,3 @@ export default function Spreadsheet({ data }) {
     </table>
   );
 };
-
-//export default Spreadsheet;

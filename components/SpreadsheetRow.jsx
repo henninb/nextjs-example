@@ -84,9 +84,9 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
       </td>
     ) : (
       <td
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent row selection
           handleFieldClick(fieldName);
-          toggleRowSelection(rowId);
         }}
         className={isRowSelected(rowId) ? 'selected' : ''}
       >
