@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
+export default function SpreadsheetRow({ rowData, toggleRowSelection, isSelected }) {
   const [editableFields, setEditableFields] = useState({});
   const [content, setContent] = useState({ ...rowData });
-  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleFieldClick = (fieldName) => {
     if (!editableFields[fieldName]) {
@@ -52,25 +51,7 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
     });
   };
 
-  const transactionStates = ['cleared', 'Completed', 'Canceled'];
-
-  const toggleRowSelection = (rowId) => {
-    setSelectedRows((prevSelectedRows) => {
-      if (prevSelectedRows.includes(rowId)) {
-        // If row is already selected, deselect it
-        return prevSelectedRows.filter((id) => id !== rowId);
-      } else {
-        // If row is not selected, select it
-        return [...prevSelectedRows, rowId];
-      }
-    });
-  };
-
-  const isRowSelected = (rowId) => {
-    return selectedRows.includes(rowId);
-  };
-
-  const renderEditableCell = (fieldName, displayValue, dataType, rowId) => {
+  const renderEditableCell = (fieldName, displayValue, dataType) => {
     return editableFields[fieldName] ? (
       <td onBlur={() => handleFieldBlur(fieldName)}>
         <input
@@ -88,7 +69,7 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
           e.stopPropagation(); // Prevent row selection
           handleFieldClick(fieldName);
         }}
-        className={isRowSelected(rowId) ? 'selected' : ''}
+        className={isSelected ? 'selected' : ''}
       >
         {content[fieldName] || displayValue}
       </td>
@@ -100,24 +81,19 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
       <td>
         <input
           type="checkbox"
-          checked={isRowSelected(rowData.id)}
+          checked={isSelected}
           onChange={() => toggleRowSelection(rowData.id)}
-        />{" "}
+        />
         {/* Checkbox for selection */}
       </td>
-      {renderEditableCell('date', rowData.transactionDate, 'date', rowData.id)}
-      {renderEditableCell('description', rowData.description, 'text', rowData.id)}
-      {renderEditableCell('category', rowData.category, 'text', rowData.id)}
-      {renderEditableCell(
-        'amount',
-        formatCurrency(rowData.amount),
-        'currency',
-        rowData.id
-      )}
-      {renderEditableCell('state', rowData.transactionState, 'text', rowData.id)}
-      {renderEditableCell('type', rowData.trasactionType, 'text', rowData.id)}
-      {renderEditableCell('reocur', rowData.reoccurringType, 'text', rowData.id)}
-      {renderEditableCell('notes', rowData.notes, 'text', rowData.id)}
+      {renderEditableCell('date', rowData.transactionDate, 'date')}
+      {renderEditableCell('description', rowData.description, 'text')}
+      {renderEditableCell('category', rowData.category, 'text')}
+      {renderEditableCell('amount', formatCurrency(rowData.amount), 'currency')}
+      {renderEditableCell('state', rowData.transactionState, 'text')}
+      {renderEditableCell('type', rowData.trasactionType, 'text')}
+      {renderEditableCell('reocur', rowData.reoccurringType, 'text')}
+      {renderEditableCell('notes', rowData.notes, 'text')}
     </tr>
   );
 }

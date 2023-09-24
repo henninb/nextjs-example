@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SpreadsheetRow from './SpreadsheetRow'
+import SpreadsheetRow from './SpreadsheetRow';
 
 export default function Spreadsheet({ data }) {
   const [selectedRows, setSelectedRows] = useState([]);
@@ -52,10 +52,11 @@ export default function Spreadsheet({ data }) {
               key={index}
               rowData={row}
               toggleRowSelection={toggleRowSelection}
+              isSelected={selectedRows.includes(row.id)} // Pass isSelected prop
             />
           ))}
         </tbody>
       </table>
     </div>
   );
-};
+}
