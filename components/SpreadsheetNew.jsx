@@ -111,9 +111,9 @@ export default function SpreadsheetNew({ data }) {
     <div>
       {areButtonsVisible && (
         <div className="button-container">
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleMove}>Move</button>
-          <button onClick={handleReset}>Reset</button>
+          <button className="reset-button" onClick={handleReset}>Reset</button>
+          <button className="move-button" onClick={handleMove}>Move</button>
+          <button className="delete-button" onClick={handleDelete}>Delete</button>
         </div>
       )}
       <table>

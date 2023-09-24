@@ -136,3 +136,27 @@ tbody tr:hover {
     color: var(--dracula-bg); /* Text color on hover */
 }
 
+/* CSS for Dracula-themed buttons */
+.button-container {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .reset-button,
+  .move-button,
+  .delete-button {
+    background-color: #44475a; /* Background color */
+    color: #f8f8f2; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .reset-button:hover,
+  .move-button:hover,
+  .delete-button:hover {
+    background-color: #6272a4; /* Background color on hover */
+  }
