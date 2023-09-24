@@ -85,6 +85,11 @@ export default function SpreadsheetNew({ data }) {
     } else {
       console.log('No rows selected for reset');
     }
+
+      // Uncheck all selected rows
+    setSelectedRows([]);
+  // Hide the buttons
+    setAreButtonsVisible(false);
   };
 
   const handleDelete = () => {
