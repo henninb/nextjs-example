@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 
-export default function SpreadsheetRow({ rowData }) {
+export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   const [editableFields, setEditableFields] = useState({});
   const [content, setContent] = useState({ ...rowData });
+  const [currentEditableField, setCurrentEditableField] = useState(null);
 
   const handleFieldClick = (fieldName) => {
-    setEditableFields({ ...editableFields, [fieldName]: true });
+    if (!currentEditableField) {
+      // Allow only one field to be editable at a time
+      setCurrentEditableField(fieldName);
+      setEditableFields({ ...editableFields, [fieldName]: true });
+    }
   };
 
   const handleFieldBlur = (fieldName) => {
+    setCurrentEditableField(null);
     setEditableFields({ ...editableFields, [fieldName]: false });
   };
 
@@ -42,7 +48,7 @@ export default function SpreadsheetRow({ rowData }) {
     });
   };
 
-  const transactionStates = ['Pending', 'Completed', 'Canceled'];
+  const transactionStates = ['cleared', 'Completed', 'Canceled'];
 
   const renderEditableCell = (fieldName, displayValue, dataType) => {
     return editableFields[fieldName] ? (
@@ -65,6 +71,9 @@ export default function SpreadsheetRow({ rowData }) {
 
   return (
     <tr>
+      <td>
+        <input type="checkbox" /> {/* Checkbox for selection */}
+      </td>
       {renderEditableCell('date', rowData.transactionDate, 'date')}
       {renderEditableCell('description', rowData.description)}
       {renderEditableCell('category', rowData.category)}
@@ -75,7 +84,8 @@ export default function SpreadsheetRow({ rowData }) {
       <td>{rowData.notes}</td>
       <td>{rowData.image}</td>
       <td>
-        <button>Delete</button>
+        <button onClick={() => onDeleteRow(rowData)}>Delete</button> {/* Button for deletion */}
+        <button onClick={() => onMoveRow(rowData)}>Move</button> {/* Button for moving */}
       </td>
     </tr>
   );
