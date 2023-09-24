@@ -3,65 +3,44 @@ import React, { useState, useEffect } from 'react';
 export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   const [editableFields, setEditableFields] = useState({});
   const [content, setContent] = useState({ ...rowData });
-  const [currentEditableField, setCurrentEditableField] = useState(null);
-  const [originalContent, setOriginalContent] = useState({ ...rowData });
   const [selectedRows, setSelectedRows] = useState([]);
 
-  // const handleFieldClick = (fieldName) => {
-  //   if (!currentEditableField) {
-  //     // Allow only one field to be editable at a time
-  //     setCurrentEditableField(fieldName);
-  //     setEditableFields({ ...editableFields, [fieldName]: true });
-  //     // Store the original content when starting to edit
-  //     setOriginalContent({ ...content });
-  //   }
-  // };
-
-
   const handleFieldClick = (fieldName) => {
-    if (!currentEditableField) {
+    if (!editableFields[fieldName]) {
       // Allow only one field to be editable at a time
-      setCurrentEditableField(fieldName);
       setEditableFields({ [fieldName]: true });
       // Store the original content when starting to edit
-      setOriginalContent({ ...content });
-    } else if (currentEditableField === fieldName) {
-      // If the same field is clicked again, it should remain in edit mode
-      // No need to do anything here
-    } else {
-      // Another field is already in edit mode, so we should not allow this field to be edited
-      return;
+      setContent((prevContent) => ({ ...prevContent }));
     }
   };
 
   const handleFieldBlur = (fieldName) => {
-    setCurrentEditableField(null);
-    setEditableFields({ ...editableFields, [fieldName]: false });
+    setEditableFields({ [fieldName]: false });
   };
 
   const handleContentChange = (fieldName, newValue, dataType) => {
     if (dataType === 'currency') {
       // Ensure newValue is numeric for currency field
       if (!isNaN(newValue)) {
-        setContent({ ...content, [fieldName]: newValue });
+        setContent((prevContent) => ({ ...prevContent, [fieldName]: newValue }));
       }
     } else if (dataType === 'date') {
       // Ensure newValue is a valid date format (you can customize this validation)
       if (/^\d{4}-\d{2}-\d{2}$/.test(newValue)) {
-        setContent({ ...content, [fieldName]: newValue });
+        setContent((prevContent) => ({ ...prevContent, [fieldName]: newValue }));
       }
     } else {
-      setContent({ ...content, [fieldName]: newValue });
+      setContent((prevContent) => ({ ...prevContent, [fieldName]: newValue }));
     }
   };
 
   const handleInputKeyDown = (fieldName, e, dataType) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
-      // Commit the change when Enter key is pressed
+      // Commit the change when Enter key or Tab key is pressed
       handleFieldBlur(fieldName);
     } else if (e.key === 'Escape') {
       // Revert to the original value when Escape key is pressed
-      setContent({ ...originalContent });
+      setContent((prevContent) => ({ ...prevContent }));
       handleFieldBlur(fieldName);
     }
   };
@@ -76,13 +55,15 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   const transactionStates = ['cleared', 'Completed', 'Canceled'];
 
   const toggleRowSelection = (rowId) => {
-    if (selectedRows.includes(rowId)) {
-      // If row is already selected, deselect it
-      setSelectedRows(selectedRows.filter((id) => id !== rowId));
-    } else {
-      // If row is not selected, select it
-      setSelectedRows([...selectedRows, rowId]);
-    }
+    setSelectedRows((prevSelectedRows) => {
+      if (prevSelectedRows.includes(rowId)) {
+        // If row is already selected, deselect it
+        return prevSelectedRows.filter((id) => id !== rowId);
+      } else {
+        // If row is not selected, select it
+        return [...prevSelectedRows, rowId];
+      }
+    });
   };
 
   const isRowSelected = (rowId) => {
@@ -137,13 +118,6 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
       {renderEditableCell('type', rowData.trasactionType, 'text', rowData.id)}
       {renderEditableCell('reocur', rowData.reoccurringType, 'text', rowData.id)}
       {renderEditableCell('notes', rowData.notes, 'text', rowData.id)}
-      <td>{rowData.image}</td>
-      <td>
-        <button onClick={() => onDeleteRow(rowData)}>Delete</button>{" "}
-        {/* Button for deletion */}
-        <button onClick={() => onMoveRow(rowData)}>Move</button>{" "}
-        {/* Button for moving */}
-      </td>
     </tr>
   );
 }

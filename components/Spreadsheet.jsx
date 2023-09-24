@@ -15,8 +15,6 @@ const Spreadsheet = ({ data }) => {
           <th>Type</th>
           <th>Recurring</th>
           <th>Notes</th>
-          <th>Image</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody>
