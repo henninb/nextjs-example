@@ -5,7 +5,7 @@ export default function MySheet() {
   const [data, setData] = useState([]); // Your spreadsheet data
   const [selectedRows, setSelectedRows] = useState([]); // Selected rows
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10; // 10 records per page
+  const [rowsPerPage, setRowsPerPage] = useState(10); // Initialize with 10 records per page
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
@@ -30,9 +30,28 @@ export default function MySheet() {
   // Calculate total number of pages
   const totalPages = Math.ceil(data.length / rowsPerPage);
 
+  // Function to handle changing the number of rows per page
+  const handleRowsPerPageChange = (event) => {
+    const newRowsPerPage = parseInt(event.target.value, 10);
+    setRowsPerPage(newRowsPerPage);
+    setCurrentPage(1); // Reset to the first page when changing rows per page
+  };
+
   return (
     <div>
       <Spreadsheet data={paginatedData} />
+      {/* Rows per page selector */}
+      <div>
+        <label>Show
+          <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={50}>50</option>
+            {/* Add more options as needed */}
+          </select>
+          records per page
+        </label>
+      </div>
       {/* Pagination controls */}
       <div>
         <button
