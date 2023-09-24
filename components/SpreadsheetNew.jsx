@@ -10,7 +10,7 @@ export default function SpreadsheetNew({ data }) {
     setAreButtonsVisible(selectedRows.length > 0);
   }, [selectedRows]);
 
-  const toggleRowSelection = (rowId) => {
+  const handleRowCheckboxChange = (rowId) => {
     setSelectedRows((prevSelectedRows) => {
       if (prevSelectedRows.includes(rowId)) {
         return prevSelectedRows.filter((id) => id !== rowId);
@@ -18,6 +18,10 @@ export default function SpreadsheetNew({ data }) {
         return [...prevSelectedRows, rowId];
       }
     });
+
+    // Log the selected row data to the console
+    const selectedRowData = data.find((row) => row.id === rowId);
+    console.log('Selected Row:', selectedRowData);
   };
 
   const handleFieldClick = (fieldName) => {
@@ -121,7 +125,7 @@ export default function SpreadsheetNew({ data }) {
                 <input
                   type="checkbox"
                   checked={selectedRows.includes(row.id)}
-                  onChange={() => toggleRowSelection(row.id)}
+                  onChange={() => handleRowCheckboxChange(row.id)}
                 />
               </td>
               {renderEditableCell('date', row.transactionDate, 'date', row.id)}
