@@ -79,9 +79,8 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
       {renderEditableCell('category', rowData.category)}
       {renderEditableCell('amount', formatCurrency(rowData.amount), 'currency')}
       {renderEditableCell('state', rowData.transactionState)}
-      {renderEditableCell('type', rowData.type)}
-      <td>{rowData.reoccurringType}</td>
-      <td>{rowData.notes}</td>
+      {renderEditableCell('type', rowData.reoccurringType)}
+      {renderEditableCell('notes', rowData.notes)}
       <td>{rowData.image}</td>
       <td>
         <button onClick={() => onDeleteRow(rowData)}>Delete</button> {/* Button for deletion */}

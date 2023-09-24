@@ -79,9 +79,6 @@ body {
         display: block;
     }
 
-    .navbar-nav {
-    }
-
     .nav-item {
         margin: 10px 0;
     }
@@ -126,3 +123,9 @@ tbody tr:hover {
     background-color: var(--dracula-cyan);
     color: var(--dracula-bg); /* Text color on hover */
 }
+
+// // /* Selected row styles */
+// tr.selected {
+//     background-color: var(--dracula-cyan); /* Background color for selected rows */
+//     color: var(--dracula-bg); /* Text color for selected rows */
+// }
