@@ -3,14 +3,30 @@ import React, { useState, useEffect } from 'react';
 export default function SpreadsheetNew({ data }) {
   const [selectedRows, setSelectedRows] = useState([]);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
+  const [selectedRowIdsForDeletion, setSelectedRowIdsForDeletion] = useState([]);
 
   const handleDelete = () => {
-    // Implement the logic to delete selected rows
+    if (selectedRowIdsForDeletion.length === 1) {
+      // Display the row ID when there is only one selected row for deletion
+      console.log(`Selected row for deletion: ${selectedRowIdsForDeletion[0]}`);
+    } else if (selectedRowIdsForDeletion.length > 1) {
+      // Display selected rows for deletion when there are multiple selected rows
+      console.log(`Selected rows for deletion: ${selectedRowIdsForDeletion.join(', ')}`);
+    } else {
+      console.log('No rows selected for deletion');
+    }
   };
 
   const handleMove = () => {
     // Implement the logic to move selected rows
   };
+
+  useEffect(() => {
+    // Update button visibility when selectedRows change
+    setAreButtonsVisible(selectedRows.length > 0);
+    // Update the selectedRowIdsForDeletion whenever selectedRows change
+    setSelectedRowIdsForDeletion(selectedRows);
+  }, [selectedRows]);
 
   const toggleRowSelection = (rowId) => {
     setSelectedRows((prevSelectedRows) => {
@@ -24,25 +40,17 @@ export default function SpreadsheetNew({ data }) {
     });
   };
 
-  useEffect(() => {
-    // Update button visibility when selectedRows change
-    setAreButtonsVisible(selectedRows.length > 0);
-  }, [selectedRows]);
-
-  const [editableFields, setEditableFields] = useState({});
+  const [editableField, setEditableField] = useState(null);
   const [content, setContent] = useState({});
 
   const handleFieldClick = (fieldName) => {
-    if (!editableFields[fieldName]) {
-      // Allow only one field to be editable at a time
-      setEditableFields({ [fieldName]: true });
-      // Store the original content when starting to edit
-      setContent((prevContent) => ({ ...prevContent }));
-    }
+    setEditableField(fieldName);
+    // Store the original content when starting to edit
+    setContent((prevContent) => ({ ...prevContent }));
   };
 
-  const handleFieldBlur = (fieldName) => {
-    setEditableFields({ [fieldName]: false });
+  const handleFieldBlur = () => {
+    setEditableField(null);
   };
 
   const handleContentChange = (fieldName, newValue, dataType) => {
@@ -64,11 +72,11 @@ export default function SpreadsheetNew({ data }) {
   const handleInputKeyDown = (fieldName, e, dataType) => {
     if (e.key === 'Enter' || e.key === 'Tab') {
       // Commit the change when Enter key or Tab key is pressed
-      handleFieldBlur(fieldName);
+      handleFieldBlur();
     } else if (e.key === 'Escape') {
       // Revert to the original value when Escape key is pressed
       setContent((prevContent) => ({ ...prevContent }));
-      handleFieldBlur(fieldName);
+      handleFieldBlur();
     }
   };
 
@@ -80,8 +88,10 @@ export default function SpreadsheetNew({ data }) {
   };
 
   const renderEditableCell = (fieldName, displayValue, dataType, rowId) => {
-    return editableFields[fieldName] ? (
-      <td onBlur={() => handleFieldBlur(fieldName)}>
+    const isEditing = editableField === fieldName;
+    
+    return isEditing ? (
+      <td onBlur={() => handleFieldBlur()}>
         <input
           type={dataType === 'currency' || dataType === 'date' ? 'text' : 'text'}
           value={content[fieldName] || ''}
@@ -93,10 +103,7 @@ export default function SpreadsheetNew({ data }) {
       </td>
     ) : (
       <td
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent row selection
-          handleFieldClick(fieldName);
-        }}
+        onClick={() => handleFieldClick(fieldName)}
         className={selectedRows.includes(rowId) ? 'selected' : ''}
       >
         {content[fieldName] || displayValue}
