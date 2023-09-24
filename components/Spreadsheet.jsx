@@ -3,6 +3,7 @@ import SpreadsheetRow from './SpreadsheetRow';
 
 export default function Spreadsheet({ data }) {
   const [selectedRows, setSelectedRows] = useState([]);
+  const [areButtonsVisible, setAreButtonsVisible] = useState(false);
 
   const handleDelete = () => {
     // Implement the logic to delete selected rows
@@ -24,9 +25,14 @@ export default function Spreadsheet({ data }) {
     });
   };
 
+  useEffect(() => {
+    // Update button visibility when selectedRows change
+    setAreButtonsVisible(selectedRows.length > 0);
+  }, [selectedRows]);
+
   return (
     <div>
-      {selectedRows.length > 0 && (
+      {areButtonsVisible && (
         <div className="button-container">
           <button onClick={handleDelete}>Delete</button>
           <button onClick={handleMove}>Move</button>
@@ -52,7 +58,7 @@ export default function Spreadsheet({ data }) {
               key={index}
               rowData={row}
               toggleRowSelection={toggleRowSelection}
-              isSelected={selectedRows.includes(row.id)} // Pass isSelected prop
+              isSelected={selectedRows.includes(row.id)}
             />
           ))}
         </tbody>

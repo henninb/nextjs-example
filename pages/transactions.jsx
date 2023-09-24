@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Spreadsheet from '../components/Spreadsheet';
+import Spreadsheet from '../components/SpreadsheetNew';
 
 export default function MySheet () {
   const [data, setData] = useState([]); // Your spreadsheet data
