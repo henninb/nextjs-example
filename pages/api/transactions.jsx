@@ -14,7 +14,8 @@ export default (_request, res) => {
     "amount": 7.50,
     "transactionState": "cleared",
     "activeStatus": true,
-    "reoccurringType": "onetime"
+    "reoccurringType": "onetime",
+    "notes": "mynote"
   },
   {
     "transactionId": 22726,
@@ -89,7 +90,8 @@ export default (_request, res) => {
     "amount": 1.99,
     "transactionState": "cleared",
     "activeStatus": true,
-    "reoccurringType": "onetime"
+    "reoccurringType": "onetime",
+    "notes": "mynote"
   },
   {
     "transactionId": 22578,
@@ -119,7 +121,8 @@ export default (_request, res) => {
     "amount": 0.50,
     "transactionState": "cleared",
     "activeStatus": true,
-    "reoccurringType": "onetime"
+    "reoccurringType": "onetime",
+    "notes": "mynote"
   },
   {
     "transactionId": 22607,

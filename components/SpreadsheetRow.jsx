@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   const [editableFields, setEditableFields] = useState({});
   const [content, setContent] = useState({ ...rowData });
   const [currentEditableField, setCurrentEditableField] = useState(null);
+  const [originalContent, setOriginalContent] = useState({ ...rowData });
 
   const handleFieldClick = (fieldName) => {
     if (!currentEditableField) {
       // Allow only one field to be editable at a time
       setCurrentEditableField(fieldName);
       setEditableFields({ ...editableFields, [fieldName]: true });
+      // Store the original content when starting to edit
+      setOriginalContent({ ...content });
     }
   };
 
@@ -35,8 +38,12 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   };
 
   const handleInputKeyDown = (fieldName, e, dataType) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === 'Tab' ) {
       // Commit the change when Enter key is pressed
+      handleFieldBlur(fieldName);
+    } else if (e.key === 'Escape') {
+      // Revert to the original value when Escape key is pressed
+      setContent({ ...originalContent });
       handleFieldBlur(fieldName);
     }
   };
@@ -79,7 +86,8 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
       {renderEditableCell('category', rowData.category)}
       {renderEditableCell('amount', formatCurrency(rowData.amount), 'currency')}
       {renderEditableCell('state', rowData.transactionState)}
-      {renderEditableCell('type', rowData.reoccurringType)}
+      {renderEditableCell('type', rowData.trasactionType)}
+      {renderEditableCell('reocur', rowData.reoccurringType)}
       {renderEditableCell('notes', rowData.notes)}
       <td>{rowData.image}</td>
       <td>

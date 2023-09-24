@@ -6,6 +6,7 @@ const Spreadsheet = ({ data }) => {
     <table>
       <thead>
         <tr>
+          <th></th>
           <th>Date</th>
           <th>Description</th>
           <th>Category</th>
