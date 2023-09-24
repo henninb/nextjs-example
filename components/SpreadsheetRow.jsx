@@ -5,14 +5,32 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   const [content, setContent] = useState({ ...rowData });
   const [currentEditableField, setCurrentEditableField] = useState(null);
   const [originalContent, setOriginalContent] = useState({ ...rowData });
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  // const handleFieldClick = (fieldName) => {
+  //   if (!currentEditableField) {
+  //     // Allow only one field to be editable at a time
+  //     setCurrentEditableField(fieldName);
+  //     setEditableFields({ ...editableFields, [fieldName]: true });
+  //     // Store the original content when starting to edit
+  //     setOriginalContent({ ...content });
+  //   }
+  // };
+
 
   const handleFieldClick = (fieldName) => {
     if (!currentEditableField) {
       // Allow only one field to be editable at a time
       setCurrentEditableField(fieldName);
-      setEditableFields({ ...editableFields, [fieldName]: true });
+      setEditableFields({ [fieldName]: true });
       // Store the original content when starting to edit
       setOriginalContent({ ...content });
+    } else if (currentEditableField === fieldName) {
+      // If the same field is clicked again, it should remain in edit mode
+      // No need to do anything here
+    } else {
+      // Another field is already in edit mode, so we should not allow this field to be edited
+      return;
     }
   };
 
@@ -38,7 +56,7 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   };
 
   const handleInputKeyDown = (fieldName, e, dataType) => {
-    if (e.key === 'Enter' || e.key === 'Tab' ) {
+    if (e.key === 'Enter' || e.key === 'Tab') {
       // Commit the change when Enter key is pressed
       handleFieldBlur(fieldName);
     } else if (e.key === 'Escape') {
@@ -57,7 +75,21 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
 
   const transactionStates = ['cleared', 'Completed', 'Canceled'];
 
-  const renderEditableCell = (fieldName, displayValue, dataType) => {
+  const toggleRowSelection = (rowId) => {
+    if (selectedRows.includes(rowId)) {
+      // If row is already selected, deselect it
+      setSelectedRows(selectedRows.filter((id) => id !== rowId));
+    } else {
+      // If row is not selected, select it
+      setSelectedRows([...selectedRows, rowId]);
+    }
+  };
+
+  const isRowSelected = (rowId) => {
+    return selectedRows.includes(rowId);
+  };
+
+  const renderEditableCell = (fieldName, displayValue, dataType, rowId) => {
     return editableFields[fieldName] ? (
       <td onBlur={() => handleFieldBlur(fieldName)}>
         <input
@@ -70,7 +102,13 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
         />
       </td>
     ) : (
-      <td onClick={() => handleFieldClick(fieldName)}>
+      <td
+        onClick={() => {
+          handleFieldClick(fieldName);
+          toggleRowSelection(rowId);
+        }}
+        className={isRowSelected(rowId) ? 'selected' : ''}
+      >
         {content[fieldName] || displayValue}
       </td>
     );
@@ -79,20 +117,32 @@ export default function SpreadsheetRow({ rowData, onDeleteRow, onMoveRow }) {
   return (
     <tr>
       <td>
-        <input type="checkbox" /> {/* Checkbox for selection */}
+        <input
+          type="checkbox"
+          checked={isRowSelected(rowData.id)}
+          onChange={() => toggleRowSelection(rowData.id)}
+        />{" "}
+        {/* Checkbox for selection */}
       </td>
-      {renderEditableCell('date', rowData.transactionDate, 'date')}
-      {renderEditableCell('description', rowData.description)}
-      {renderEditableCell('category', rowData.category)}
-      {renderEditableCell('amount', formatCurrency(rowData.amount), 'currency')}
-      {renderEditableCell('state', rowData.transactionState)}
-      {renderEditableCell('type', rowData.trasactionType)}
-      {renderEditableCell('reocur', rowData.reoccurringType)}
-      {renderEditableCell('notes', rowData.notes)}
+      {renderEditableCell('date', rowData.transactionDate, 'date', rowData.id)}
+      {renderEditableCell('description', rowData.description, 'text', rowData.id)}
+      {renderEditableCell('category', rowData.category, 'text', rowData.id)}
+      {renderEditableCell(
+        'amount',
+        formatCurrency(rowData.amount),
+        'currency',
+        rowData.id
+      )}
+      {renderEditableCell('state', rowData.transactionState, 'text', rowData.id)}
+      {renderEditableCell('type', rowData.trasactionType, 'text', rowData.id)}
+      {renderEditableCell('reocur', rowData.reoccurringType, 'text', rowData.id)}
+      {renderEditableCell('notes', rowData.notes, 'text', rowData.id)}
       <td>{rowData.image}</td>
       <td>
-        <button onClick={() => onDeleteRow(rowData)}>Delete</button> {/* Button for deletion */}
-        <button onClick={() => onMoveRow(rowData)}>Move</button> {/* Button for moving */}
+        <button onClick={() => onDeleteRow(rowData)}>Delete</button>{" "}
+        {/* Button for deletion */}
+        <button onClick={() => onMoveRow(rowData)}>Move</button>{" "}
+        {/* Button for moving */}
       </td>
     </tr>
   );

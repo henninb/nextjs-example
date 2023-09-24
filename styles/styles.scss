@@ -124,8 +124,13 @@ tbody tr:hover {
     color: var(--dracula-bg); /* Text color on hover */
 }
 
-// // /* Selected row styles */
 // tr.selected {
-//     background-color: var(--dracula-cyan); /* Background color for selected rows */
+//     background-color: var(--dracula-purple); /* Change this to your desired color */
 //     color: var(--dracula-bg); /* Text color for selected rows */
-// }
+//   }
+
+// /* Increase specificity */
+// table tr.selected {
+//     background-color: var(--dracula-purple) !important;
+//     color: var(--dracula-bg) !important;
+//   }
