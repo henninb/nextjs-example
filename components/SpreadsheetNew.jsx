@@ -6,6 +6,7 @@ export default function SpreadsheetNew({ data }) {
   const [content, setContent] = useState({});
   const [editableCell, setEditableCell] = useState(null);
   const [editValue, setEditValue] = useState('');
+  const [previousValue, setPreviousValue] = useState('');
 
   useEffect(() => {
     setAreButtonsVisible(selectedRows.length > 0);
@@ -21,8 +22,10 @@ export default function SpreadsheetNew({ data }) {
     });
   };
 
-  const handleFieldClick = (fieldName, rowId) => {
+  const handleFieldClick = (fieldName, rowId, displayValue) => {
     setEditableCell({ fieldName, rowId });
+    setPreviousValue(displayValue); // Store the previous value
+    setEditValue(displayValue); // Initialize the edit field with the previous value
   };
 
   const handleCellValueChange = (value, fieldName, rowId) => {
@@ -49,7 +52,7 @@ export default function SpreadsheetNew({ data }) {
 
     const handleBlur = () => {
       if (isEditing) {
-        handleCellValueChange(displayValue, fieldName, rowId);
+        handleCellValueChange(editValue, fieldName, rowId);
       }
     };
 
@@ -61,7 +64,7 @@ export default function SpreadsheetNew({ data }) {
 
     return (
       <td
-        onClick={() => handleFieldClick(fieldName, rowId)}
+        onClick={() => handleFieldClick(fieldName, rowId, displayValue)}
         onBlur={handleBlur}
         className={isEditing ? 'editing' : ''}
       >
@@ -76,7 +79,7 @@ export default function SpreadsheetNew({ data }) {
             {isEditing ? (
               <input
                 type="text"
-                value={content[rowId] && content[rowId][fieldName] || ''}
+                value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 autoFocus
