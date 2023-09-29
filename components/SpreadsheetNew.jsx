@@ -6,7 +6,6 @@ export default function SpreadsheetNew({ data }) {
   const [content, setContent] = useState({});
   const [editableCell, setEditableCell] = useState(null);
   const [editValue, setEditValue] = useState('');
-  const [previousValue, setPreviousValue] = useState('');
 
   useEffect(() => {
     setAreButtonsVisible(selectedRows.length > 0);
@@ -24,7 +23,6 @@ export default function SpreadsheetNew({ data }) {
 
   const handleFieldClick = (fieldName, rowId, displayValue) => {
     setEditableCell({ fieldName, rowId });
-    setPreviousValue(displayValue); // Store the previous value
     setEditValue(displayValue); // Initialize the edit field with the previous value
   };
 
