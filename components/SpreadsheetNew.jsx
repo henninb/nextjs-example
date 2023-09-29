@@ -102,6 +102,9 @@ export default function SpreadsheetNew({ data }) {
     }
   };
 
+  const handleAdd = () => {
+  }
+
   const handleMove = () => {
     if (selectedRows.length === 1) {
       console.log(`Selected row for moving: ${selectedRows[0]}`);
@@ -114,13 +117,20 @@ export default function SpreadsheetNew({ data }) {
 
   return (
     <div>
-      {areButtonsVisible && (
-        <div className="button-container">
-          <button className="reset-button" onClick={handleReset}>Reset</button>
-          <button className="move-button" onClick={handleMove}>Move</button>
-          <button className="delete-button" onClick={handleDelete}>Delete</button>
-        </div>
-      )}
+
+
+<div className="button-container">
+  {areButtonsVisible ? (
+    <>
+      <button className="reset-button" onClick={handleReset}>Reset</button>
+      <button className="move-button" onClick={handleMove}>Move</button>
+      <button className="delete-button" onClick={handleDelete}>Delete</button>
+    </>
+  ) : (
+    <button className="add-button" onClick={handleAdd}>Add</button>
+  )}
+</div>
+
       <table>
         <thead>
           <tr>
