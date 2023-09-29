@@ -45,10 +45,10 @@ export default function MySheet() {
       <div className="rows-per-page-selector">
         <label>Show
           <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
+          <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
             <option value={50}>50</option>
-            {/* Add more options as needed */}
           </select>
           records per page
         </label>
