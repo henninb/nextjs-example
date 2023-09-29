@@ -41,7 +41,8 @@ export default function MySheet() {
     <div>
       <Spreadsheet data={paginatedData} />
       {/* Rows per page selector */}
-      <div>
+      
+      <div className="rows-per-page-selector">
         <label>Show
           <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
             <option value={10}>10</option>
@@ -53,8 +54,9 @@ export default function MySheet() {
         </label>
       </div>
       {/* Pagination controls */}
-      <div>
+      <div className="pagination-container">
         <button
+          className={`pagination-button ${currentPage === 1 ? 'disabled' : ''}`}
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -64,6 +66,7 @@ export default function MySheet() {
           Page {currentPage} of {totalPages}
         </span>
         <button
+          className={`pagination-button ${currentPage === totalPages ? 'disabled' : ''}`}
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >

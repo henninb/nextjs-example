@@ -160,3 +160,61 @@ tbody tr:hover {
   .delete-button:hover {
     background-color: #6272a4; /* Background color on hover */
   }
+
+
+  /* pagination */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-button {
+    background-color: #282a36;
+    color: #f8f8f2;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .pagination-button:hover {
+    background-color: #44475a;
+  }
+  
+  .pagination-button.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+
+  .rows-per-page-selector {
+    text-align: right;
+    margin-top: 10px;
+  }
+  
+  /* Style the select element */
+  .rows-per-page-selector select {
+    background-color: #282a36;
+    color: #f8f8f2;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .rows-per-page-selector select:hover {
+    background-color: #44475a;
+  }
+  
+  /* Style the label (optional) */
+  .rows-per-page-selector label {
+    color: #f8f8f2;
+    margin-right: 10px;
+  }
+  
+  /* Style the options (optional) */
+  .rows-per-page-selector select option {
+    background-color: #282a36;
+    color: #f8f8f2;
+  }
