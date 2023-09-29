@@ -5,6 +5,7 @@ export default function SpreadsheetNew({ data }) {
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [content, setContent] = useState({});
   const [editableField, setEditableField] = useState(null);
+  const [editValue, setEditValue] = useState(''); // Added state for editing value
 
   useEffect(() => {
     setAreButtonsVisible(selectedRows.length > 0);
@@ -20,9 +21,9 @@ export default function SpreadsheetNew({ data }) {
     });
   };
 
-  const handleFieldClick = (fieldName) => {
+  const handleFieldClick = (fieldName, displayValue) => {
     setEditableField(fieldName);
-    setContent((prevContent) => ({ ...prevContent }));
+    setEditValue(displayValue); // Set the value for editing
   };
 
   const handleFieldBlur = () => {
@@ -61,7 +62,7 @@ export default function SpreadsheetNew({ data }) {
 
     return (
       <td
-        onClick={() => handleFieldClick(fieldName)}
+        onClick={() => handleFieldClick(fieldName, displayValue)}
         className={isEditing ? 'editing' : ''}
       >
         {fieldName === 'selected' ? (
@@ -71,7 +72,20 @@ export default function SpreadsheetNew({ data }) {
             onChange={() => handleRowCheckboxChange(rowId)}
           />
         ) : (
-          fieldName === 'selected' ? (isSelected ? 'x' : null) : (content[fieldName] || displayValue)
+          isEditing ? (
+            <input
+              type="text"
+              value={editValue}
+              onChange={(e) => setEditValue(e.target.value)}
+              onBlur={() => {
+                handleContentChange(fieldName, editValue, dataType);
+                handleFieldBlur();
+              }}
+              onKeyDown={(e) => handleInputKeyDown(fieldName, e, dataType)}
+            />
+          ) : (
+            fieldName === 'selected' ? (isSelected ? 'x' : null) : (content[fieldName] || displayValue)
+          )
         )}
       </td>
     );
@@ -86,9 +100,9 @@ export default function SpreadsheetNew({ data }) {
       console.log('No rows selected for reset');
     }
 
-      // Uncheck all selected rows
+    // Uncheck all selected rows
     setSelectedRows([]);
-  // Hide the buttons
+    // Hide the buttons
     setAreButtonsVisible(false);
   };
 
@@ -103,7 +117,8 @@ export default function SpreadsheetNew({ data }) {
   };
 
   const handleAdd = () => {
-  }
+    // Implement your add logic here
+  };
 
   const handleMove = () => {
     if (selectedRows.length === 1) {
@@ -117,19 +132,17 @@ export default function SpreadsheetNew({ data }) {
 
   return (
     <div>
-
-
-<div className="button-container">
-  {areButtonsVisible ? (
-    <>
-      <button className="reset-button" onClick={handleReset}>Reset</button>
-      <button className="move-button" onClick={handleMove}>Move</button>
-      <button className="delete-button" onClick={handleDelete}>Delete</button>
-    </>
-  ) : (
-    <button className="add-button" onClick={handleAdd}>Add</button>
-  )}
-</div>
+      <div className="button-container">
+        {areButtonsVisible ? (
+          <>
+            <button className="reset-button" onClick={handleReset}>Reset</button>
+            <button className="move-button" onClick={handleMove}>Move</button>
+            <button className="delete-button" onClick={handleDelete}>Delete</button>
+          </>
+        ) : (
+          <button className="add-button" onClick={handleAdd}>Add</button>
+        )}
+      </div>
 
       <table>
         <thead>
