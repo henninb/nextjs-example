@@ -52,10 +52,13 @@ export default function Navbar() {
               <div className="nav-link">Login</div>
             </Link>
           </li>
+          <li className="nav-item">
+            <Link href="/logout" passHref>
+              <div className="nav-link">Logout</div>
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
   );
 };
-
-// export default Navbar;
