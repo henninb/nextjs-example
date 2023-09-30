@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-// Create a component for the overlay form
 export default function AddRowOverlay({ onAddRow, onClose }) {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     date: '',
     description: '',
     category: '',
@@ -11,7 +10,9 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     type: '',
     recurring: '',
     notes: '',
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,108 +33,93 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
       <div className="overlay-content">
         <h2>Add Row</h2>
         <form>
-          <div className="form-row">
-            <div className="form-group col text-left">
-              <label htmlFor="date">Date:</label>
-              <input
-                type="text"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleInputChange}
-                //className="form-control text-left"
-                className="dracula-input"
-              />
-            </div>
-            <div className="form-group col text-left">
-              <label htmlFor="description">Description:</label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                //className="form-control text-left"
-                className="dracula-input"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="date">Date:</label>
+            <input
+              type="text"
+              id="date"
+              name="date"
+              value={formData.date}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
           </div>
-          <div className="form-row">
-            <div className="form-group col text-left">
-              <label htmlFor="category">Category:</label>
-              <input
-                type="text"
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                //className="form-control text-left"
-                className="dracula-input"
-              />
-            </div>
-            <div className="form-group col text-left">
-              <label htmlFor="amount">Amount:</label>
-              <input
-                type="text"
-                id="amount"
-                name="amount"
-                value={formData.amount}
-                onChange={handleInputChange}
-                //className="form-control text-left smaller-input"
-                className="dracula-input"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="description">Description:</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
           </div>
-          <div className="form-row">
-            <div className="form-group col text-left">
-              <label htmlFor="state">State:</label>
-              <input
-                type="text"
-                id="state"
-                name="state"
-                value={formData.state}
-                onChange={handleInputChange}
-                //className="form-control text-left"
-                className="dracula-input text-left"
-              />
-            </div>
-            <div className="form-group col text-left">
-              <label htmlFor="type">Type:</label>
-              <input
-                type="text"
-                id="type"
-                name="type"
-                value={formData.type}
-                onChange={handleInputChange}
-                //className="form-control text-left"
-                className="dracula-input text-left"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="category">Category:</label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
           </div>
-          <div className="form-row">
-            <div className="form-group col text-left">
-              <label htmlFor="recurring">Recurring:</label>
-              <input
-                type="text"
-                id="recurring"
-                name="recurring"
-                value={formData.recurring}
-                onChange={handleInputChange}
-                //className="form-control text-left smaller-input"
-                className="dracula-input text-left"
-              />
-            </div>
-            <div className="form-group col text-left">
-              <label htmlFor="notes">Notes:</label>
-              <input
-                type="text"
-                id="notes"
-                name="notes"
-                value={formData.notes}
-                onChange={handleInputChange}
-                className="dracula-input text-left"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="amount">Amount:</label>
+            <input
+              type="text"
+              id="amount"
+              name="amount"
+              value={formData.amount}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="state">State:</label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              value={formData.state}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="type">Type:</label>
+            <input
+              type="text"
+              id="type"
+              name="type"
+              value={formData.type}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="recurring">Recurring:</label>
+            <input
+              type="text"
+              id="recurring"
+              name="recurring"
+              value={formData.recurring}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="notes">Notes:</label>
+            <input
+              type="text"
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={handleInputChange}
+              className="dracula-input"
+            />
           </div>
           <div className="button-container">
             <button type="button" onClick={handleSave} className="btn btn-primary">Save</button>
