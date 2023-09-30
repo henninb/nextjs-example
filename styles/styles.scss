@@ -73,7 +73,6 @@ body {
     color: var(--dracula-fg);
 }
 
-/* Media query for responsiveness */
 @media (max-width: 768px) {
     .navbar-toggler {
         display: block;
@@ -100,18 +99,6 @@ table {
     text-transform: uppercase;
 }
 
-
-// tr.selected {
-//     background-color: var(--dracula-purple); /* Change this to your desired color */
-//     color: var(--dracula-bg); /* Text color for selected rows */
-// }
-
-// /* Increase specificity */
-// table tr.selected {
-//     background-color: var(--dracula-purple) !important;
-//     color: var(--dracula-bg) !important;
-// }
-
 th, td {
     padding: 8px 12px;
     border: 1px solid var(--dracula-comment);
@@ -128,12 +115,12 @@ tr:nth-child(even) {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: var(--dracula-pink);
+    background-color: var(--dracula-purple);
 }
 
 tbody tr:hover {
-    background-color: var(--dracula-cyan);
-    color: var(--dracula-bg); /* Text color on hover */
+  background-color: var(--dracula-pink);
+  color: var(--dracula-fg);
 }
 
 /* CSS for Dracula-themed buttons */
@@ -224,4 +211,19 @@ tbody tr:hover {
     outline: none;
     border-color: #bd93f9;
     box-shadow: 0 0 0 2px #bd93f9;
+  }
+
+
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+    z-index: 999; /* Make sure it's above other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
@@ -27,6 +27,24 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     onAddRow(formData);
     onClose();
   };
+
+
+    // Add an event listener for the 'keydown' event
+    useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (e.keyCode === 27) { // Check if the pressed key is the Escape key (key code 27)
+          onClose(); // Close the overlay
+        }
+      };
+  
+      // Add the event listener when the component mounts
+      document.addEventListener('keydown', handleKeyDown);
+  
+      // Remove the event listener when the component unmounts
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [onClose]);
 
   return (
     <div className="overlay">
