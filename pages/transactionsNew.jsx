@@ -192,11 +192,8 @@ export default function TransactionsNew() {
           </>
         ) : (
             <>
-          <button className="add-button" onClick={handleAdd}>
-            Add
-          </button>
-
-         <button onClick={() => setShowAddRowOverlay(true)}>AddNew</button>
+         <button className="add-button" 
+         onClick={() => setShowAddRowOverlay(true)}>Add</button>
          {showAddRowOverlay && (
         <AddRowOverlay onAddRow={handleAddRow} onClose={() => setShowAddRowOverlay(false)} />
       )}
