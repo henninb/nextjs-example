@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {v4 as uuidv4} from 'uuid';
 import AddRowOverlay from '../components/AddRowOverlay'
 
 export default function TransactionsNew() {
@@ -9,7 +10,7 @@ export default function TransactionsNew() {
   const [editableCell, setEditableCell] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Initialize with 10 records per page
+  const [rowsPerPage, setRowsPerPage] = useState(20);
   const [showAddRowOverlay, setShowAddRowOverlay] = useState(false);
 
   // Functions to handle data modification, row selection, and pagination
@@ -58,9 +59,18 @@ export default function TransactionsNew() {
     });
   };
 
-  const renderEditableCell = (fieldName, displayValue, dataType, rowId) => {
+  const renderEditableCell = (fieldName, displayValue, rowId) => {
     const isSelected = selectedRows.includes(rowId);
     const isEditing = editableCell && editableCell.fieldName === fieldName && editableCell.rowId === rowId;
+
+
+    const handleEscapeKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        // Revert changes when "Escape" key is pressed
+        setEditValue(displayValue);
+        setEditableCell(null);
+      }
+    };
 
     const handleBlur = () => {
       if (isEditing) {
@@ -85,7 +95,7 @@ export default function TransactionsNew() {
             type="checkbox"
             checked={isSelected}
             onChange={() => handleRowCheckboxChange(rowId)}
-            className="dracula-input"
+
           />
         ) : (
           <span>
@@ -94,6 +104,7 @@ export default function TransactionsNew() {
                 type="text"
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
+                onKeyDown={handleEscapeKeyPress} 
                 className="dracula-input"
                 onKeyPress={handleKeyPress}
                 autoFocus
@@ -156,12 +167,9 @@ export default function TransactionsNew() {
     setCurrentPage(1); // Reset to the first page when changing rows per page
   };
 
-  const handleAdd = () => {
-    console.log('add element');
-  };
-
   const handleAddRow = (newRowData) => {
     // Add the new row to your data array
+    newRowData.guid = uuidv4()
     setData((prevData) => [...prevData, newRowData]);
   };
 
@@ -206,7 +214,7 @@ export default function TransactionsNew() {
           onClose={() => setShowAddRowOverlay(false)}
         />
       ) : (
-<>
+     <>
       <table>
         <thead>
           <tr>
@@ -224,15 +232,15 @@ export default function TransactionsNew() {
         <tbody>
           {paginatedData.map((row, index) => (
             <tr key={index}>
-              {renderEditableCell('selected', null, null, row.guid)}
-              {renderEditableCell('date', row.transactionDate, 'date', row.guid)}
-              {renderEditableCell('description', row.description, 'text', row.guid)}
-              {renderEditableCell('category', row.category, 'text', row.guid)}
-              {renderEditableCell('amount', formatCurrency(row.amount), 'currency', row.guid)}
-              {renderEditableCell('state', row.transactionState, 'text', row.guid)}
-              {renderEditableCell('type', row.transactionType, 'text', row.guid)}
-              {renderEditableCell('recurring', row.recurringType, 'text', row.guid)}
-              {renderEditableCell('notes', row.notes, 'text', row.guid)}
+              {renderEditableCell('selected', null,  row.guid)}
+              {renderEditableCell('date', row.transactionDate, row.guid)}
+              {renderEditableCell('description', row.description, row.guid)}
+              {renderEditableCell('category', row.category, row.guid)}
+              {renderEditableCell('amount', formatCurrency(row.amount), row.guid)}
+              {renderEditableCell('state', row.transactionState, row.guid)}
+              {renderEditableCell('type', row.transactionType, row.guid)}
+              {renderEditableCell('recurring', row.recurringType, row.guid)}
+              {renderEditableCell('notes', row.notes, row.guid)}
             </tr>
           ))}
         </tbody>
