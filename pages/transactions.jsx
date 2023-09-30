@@ -3,7 +3,6 @@ import Spreadsheet from '../components/SpreadsheetNew';
 
 export default function MySheet() {
   const [data, setData] = useState([]); // Your spreadsheet data
-  const [selectedRows, setSelectedRows] = useState([]); // Selected rows
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10); // Initialize with 10 records per page
 
@@ -15,6 +14,13 @@ export default function MySheet() {
       .then((data) => setData(data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
+
+  const handleDeleteRows = (selectedRows) => {
+    console.log('delete rows');
+    const selectedRowIds = Object.keys(selectedRows); // Convert selectedRows object to an array of row IDs
+    const updatedData = data.filter((row) => !selectedRowIds.includes(row.guid));
+    setData(updatedData);
+  };
 
   // Function to slice the data based on current page and rows per page
   const paginatedData = data.slice(
@@ -39,7 +45,7 @@ export default function MySheet() {
 
   return (
     <div>
-      <Spreadsheet data={paginatedData} />
+      <Spreadsheet data={paginatedData} handleDelete={handleDeleteRows} />
       {/* Rows per page selector */}
       
       <div className="rows-per-page-selector">

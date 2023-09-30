@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function SpreadsheetNew({ data }) {
+export default function SpreadsheetNew({ data, handleDelete }) {
   const [selectedRows, setSelectedRows] = useState([]);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
   const [content, setContent] = useState({});
@@ -104,15 +104,24 @@ export default function SpreadsheetNew({ data }) {
     setAreButtonsVisible(false);
   };
 
-  const handleDelete = () => {
-    if (selectedRows.length === 1) {
-      console.log(`Selected row for deletion: ${selectedRows[0]}`);
-    } else if (selectedRows.length > 1) {
-      console.log(`Selected rows for deletion: ${selectedRows.join(', ')}`);
-    } else {
-      console.log('No rows selected for deletion');
-    }
-  };
+  // const handleDelete = () => {
+  //   if (selectedRows.length === 0) {
+  //     console.log('No rows selected for deletion');
+  //     return;
+  //   }
+  
+  //   const updatedContent = { ...content };
+  
+  //   selectedRows.forEach((rowId) => {
+  //     delete updatedContent[rowId];
+  //   });
+  
+  //   setContent(updatedContent);
+  //   setSelectedRows([]); // Clear the selected rows
+  //   setAreButtonsVisible(false);
+  
+  //   console.log(`Deleted rows: ${selectedRows.join(', ')}`);
+  // };
 
   const handleAdd = () => {
     console.log('add element');
