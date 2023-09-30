@@ -38,6 +38,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="date"
             value={formData.date}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -47,6 +48,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="description"
             value={formData.description}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -56,6 +58,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="category"
             value={formData.category}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -65,6 +68,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="amount"
             value={formData.amount}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -74,6 +78,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="state"
             value={formData.state}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -83,6 +88,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="type"
             value={formData.type}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -92,6 +98,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="recurring"
             value={formData.recurring}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div>
@@ -101,6 +108,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             name="notes"
             value={formData.notes}
             onChange={handleInputChange}
+            className="dracula-input"
           />
         </div>
         <div className="button-container">

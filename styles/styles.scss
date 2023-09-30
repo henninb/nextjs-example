@@ -207,3 +207,21 @@ tbody tr:hover {
     background-color: #282a36;
     color: #f8f8f2;
   }
+
+
+  /* Dracula Theme */
+.dracula-input {
+    background-color: #282a36;
+    color: #f8f8f2;
+    border: 1px solid #44475a;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px;
+    font-size: 14px;
+  }
+  
+  .dracula-input:focus {
+    outline: none;
+    border-color: #bd93f9;
+    box-shadow: 0 0 0 2px #bd93f9;
+  }

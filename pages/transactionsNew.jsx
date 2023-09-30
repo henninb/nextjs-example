@@ -85,6 +85,7 @@ export default function TransactionsNew() {
             type="checkbox"
             checked={isSelected}
             onChange={() => handleRowCheckboxChange(rowId)}
+            className="dracula-input"
           />
         ) : (
           <span>
@@ -93,6 +94,7 @@ export default function TransactionsNew() {
                 type="text"
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
+                className="dracula-input"
                 onKeyPress={handleKeyPress}
                 autoFocus
               />
