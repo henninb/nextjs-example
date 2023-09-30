@@ -41,7 +41,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="date"
                 value={formData.date}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                //className="form-control text-left"
+                className="dracula-input"
               />
             </div>
             <div className="form-group col text-left">
@@ -52,7 +53,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                //className="form-control text-left"
+                className="dracula-input"
               />
             </div>
           </div>
@@ -65,7 +67,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="category"
                 value={formData.category}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                //className="form-control text-left"
+                className="dracula-input"
               />
             </div>
             <div className="form-group col text-left">
@@ -76,7 +79,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="amount"
                 value={formData.amount}
                 onChange={handleInputChange}
-                className="form-control text-left smaller-input"
+                //className="form-control text-left smaller-input"
+                className="dracula-input"
               />
             </div>
           </div>
@@ -89,7 +93,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="state"
                 value={formData.state}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                //className="form-control text-left"
+                className="dracula-input text-left"
               />
             </div>
             <div className="form-group col text-left">
@@ -100,7 +105,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="type"
                 value={formData.type}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                //className="form-control text-left"
+                className="dracula-input text-left"
               />
             </div>
           </div>
@@ -113,7 +119,8 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="recurring"
                 value={formData.recurring}
                 onChange={handleInputChange}
-                className="form-control text-left smaller-input"
+                //className="form-control text-left smaller-input"
+                className="dracula-input text-left"
               />
             </div>
             <div className="form-group col text-left">
@@ -124,7 +131,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
                 name="notes"
                 value={formData.notes}
                 onChange={handleInputChange}
-                className="form-control text-left"
+                className="dracula-input text-left"
               />
             </div>
           </div>
