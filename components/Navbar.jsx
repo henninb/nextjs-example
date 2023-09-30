@@ -36,7 +36,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="/transactionsNew" passHref>
+            <Link href="/transactions" passHref>
               <div className="nav-link">Transactions</div>
             </Link>
           </li>
