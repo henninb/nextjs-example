@@ -194,14 +194,19 @@ export default function TransactionsNew() {
             <>
          <button className="add-button" 
          onClick={() => setShowAddRowOverlay(true)}>Add</button>
-         {showAddRowOverlay && (
-        <AddRowOverlay onAddRow={handleAddRow} onClose={() => setShowAddRowOverlay(false)} />
-      )}
-
          </>
         )}
       </div>
 
+
+
+{showAddRowOverlay ? (
+        <AddRowOverlay
+          onAddRow={handleAddRow}
+          onClose={() => setShowAddRowOverlay(false)}
+        />
+      ) : (
+<>
       <table>
         <thead>
           <tr>
@@ -232,6 +237,8 @@ export default function TransactionsNew() {
           ))}
         </tbody>
       </table>
+
+
       
       {/* Rows per page selector */}
       <div className="rows-per-page-selector">
@@ -266,6 +273,10 @@ export default function TransactionsNew() {
           Next
         </button>
       </div>
+
+      </>
+)}
+
     </div>
   );
 }
