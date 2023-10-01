@@ -15,11 +15,7 @@ export default function TransactionsNew() {
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
-
-    
-
-    const account = 'your_account_param'; // Replace 'your_account_param' with the actual account parameter
-
+    const account = 'chase-amazon_brian';
   fetch(`/api/transactions/${account}`)
   //fetch(`/api/transactions/`)
   .then((response) => response.json())
@@ -56,13 +52,6 @@ export default function TransactionsNew() {
     }));
     setEditableCell(null);
   };
-
-  // const formatCurrency = (amount) => {
-  //   return amount.toLocaleString('en-US', {
-  //     style: 'currency',
-  //     currency: 'USD',
-  //   });
-  // };
 
   const formatCurrency = (amount) => {
     if (typeof amount === 'number') {
