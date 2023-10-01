@@ -62,7 +62,7 @@ export default function Navbar() {
           <select
             value={selectedAccount}
             onChange={handleAccountChange}
-            className="form-control"
+            className="dracula-input" 
           >
             <option value="" disabled>Select an Account</option>
             {data.map((account) => (
