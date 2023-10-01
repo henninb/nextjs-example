@@ -15,11 +15,16 @@ export default function TransactionsNew() {
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
-    // Fetch data from your API endpoint
-    fetch('/api/transactions') // Replace with your actual API endpoint
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.error('Error fetching data:', error));
+
+    
+
+    const account = 'your_account_param'; // Replace 'your_account_param' with the actual account parameter
+
+  fetch(`/api/transactions/${account}`)
+  //fetch(`/api/transactions/`)
+  .then((response) => response.json())
+  .then((data) => setData(data))
+  .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
   useEffect(() => {
@@ -52,11 +57,22 @@ export default function TransactionsNew() {
     setEditableCell(null);
   };
 
+  // const formatCurrency = (amount) => {
+  //   return amount.toLocaleString('en-US', {
+  //     style: 'currency',
+  //     currency: 'USD',
+  //   });
+  // };
+
   const formatCurrency = (amount) => {
-    return amount.toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
+    if (typeof amount === 'number') {
+      return amount.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+    } else {
+      return 'Invalid amount';
+    }
   };
 
   const renderEditableCell = (fieldName, displayValue, rowId) => {
@@ -81,6 +97,14 @@ export default function TransactionsNew() {
     const handleKeyPress = (e) => {
       if (e.key === 'Enter') {
         handleCellValueChange(editValue, fieldName, rowId);
+        console.log(editValue);
+        //data['fieldName'] = editValue;
+        const index = data.findIndex((item) => item.guid === rowId);
+        console.log(index)
+        const newData = { ...data[index], [fieldName]: editValue };
+        console.log(newData)
+        //setData(newData)
+        //displayValue = editValue;
       }
     };
 

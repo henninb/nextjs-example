@@ -1,4 +1,4 @@
-export default (_request, res) => {
+export default (_request, response) => {
   // Replace with your actual data source or database query
   const data = [
       {
@@ -186,6 +186,6 @@ export default (_request, res) => {
     },
   ];
 
-  res.status(200).json(data);
+  response.status(200).json(data);
 };
 
