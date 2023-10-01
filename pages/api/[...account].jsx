@@ -1,6 +1,6 @@
-export default (request, response) => {
+export default async(request, response) => {
   // Replace with your actual data source or database query
-  const data = [
+  const data1 = [
       {
     "transactionId": 22754,
     "guid": "023ccd6f-1306-4746-a467-c40855fa2428",
@@ -190,10 +190,34 @@ export default (request, response) => {
   const { account } = request.query;
     //if (request.url === '/api/transactions') {
     if (request.url.startsWith('/api/transactions')) {
-      // Handle the /api/transactions route here
-      // You can access the 'account' parameter and perform actions based on it
-      //response.status(200).json({ account });
-      response.status(200).json(data);
+
+      try {
+        // Make the fetch request to your API
+        //const apiUrl = `http://192.168.10.10:8443/transaction/account/select/${account}`;
+        const apiUrl = `http://192.168.10.10:8443/transaction/account/select/chase-amazon_brian`;
+        const data = await fetch(apiUrl).then((response) => response.json());
+  
+        // Return the fetched data as the response
+        response.status(200).json(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        response.status(500).json({ error: 'Internal Server Error' });
+      }
+
+
+  //     // Handle the /api/transactions route here
+  //     // You can access the 'account' parameter and perform actions based on it
+
+  //     fetch(`http://192.168.10.10:8443/transaction/account/select/amazon_brian`)
+  // //fetch(`/api/transactions/`)
+  // .then((response) => response.json())
+  // //.then((data) => setData(data))
+  // .catch((error) => console.error('Error fetching data:', error));
+
+  //     //curl http://192.168.10.10:8443/transaction/account/select/amazon_brian
+
+  //     //response.status(200).json({ account });
+  //     response.status(200).json(data);
     } else {
       response.status(404).json({ error: 'Not Found' });
     }
