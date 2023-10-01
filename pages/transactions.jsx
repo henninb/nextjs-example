@@ -10,7 +10,7 @@ export default function TransactionsNew() {
   const [editableCell, setEditableCell] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
   const [showAddRowOverlay, setShowAddRowOverlay] = useState(false);
 
   // Functions to handle data modification, row selection, and pagination
