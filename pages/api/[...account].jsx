@@ -188,7 +188,6 @@ export default (request, response) => {
 
 
   const { account } = request.query;
-    // Check if the request path matches /api/transactions
     //if (request.url === '/api/transactions') {
     if (request.url.startsWith('/api/transactions')) {
       // Handle the /api/transactions route here
@@ -196,9 +195,6 @@ export default (request, response) => {
       //response.status(200).json({ account });
       response.status(200).json(data);
     } else {
-      // For other routes within the /api directory, you can pass them to other handlers
-      // For example, you can have separate API files for other routes in /pages/api
-      // and handle them accordingly
       response.status(404).json({ error: 'Not Found' });
     }
 
