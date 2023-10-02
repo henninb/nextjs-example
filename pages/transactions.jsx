@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid';
 import AddRowOverlay from '../components/AddRowOverlay'
 
-export default function TransactionsNew() {
+//export default function Transactions() {
+export default function Transactions({account}) {
   const [data, setData] = useState([]); // Your spreadsheet data
   const [selectedRows, setSelectedRows] = useState([]);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
@@ -15,13 +16,12 @@ export default function TransactionsNew() {
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
-    const account = 'chase-amazon_brian';
+  const account = 'chase-amazon_brian';
   fetch(`/api/transactions/${account}`)
-  //fetch(`/api/transactions/`)
   .then((response) => response.json())
   .then((data) => setData(data))
   .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+  }, [account]);
 
   useEffect(() => {
     setAreButtonsVisible(selectedRows.length > 0);

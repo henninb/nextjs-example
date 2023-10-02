@@ -1,15 +1,17 @@
-//import React from 'react';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Navbar() {
-  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [selectedAccount, setSelectedAccount] = useState('');
   const [data, setData] = useState([]); // Your spreadsheet data
+  const router = useRouter();
 
   const handleAccountChange = (event) => {
     setSelectedAccount(event.target.value);
+    console.log('test: ' + event.target.value)
+    router.push(`/transactions?account=${event.target.value}`);
   };
-
 
   useEffect(() => {
   fetch(`/api/accounts`)
@@ -56,22 +58,23 @@ export default function Navbar() {
             </Link>
           </li>
 
-        <li className="nav-item">
-        <div className="nav-link">
-          <select
-            value={selectedAccount}
-            onChange={handleAccountChange}
-            className="dracula-input" 
-          >
-            <option value="" disabled>Select an Account</option>
-            {data.map((account) => (
-              <option key={account.accountId} value={account.accountId}>
-                {account.accountNameOwner}
+
+          <li className="nav-item">
+            <select
+              value={selectedAccount}
+              onChange={handleAccountChange}
+              className="dracula-input"
+            >
+              <option value="" disabled>
+                Select an Account
               </option>
-            ))}
-          </select>
-        </div>
-      </li>
+              {data.map((account) => (
+                <option key={account.accountId} value={account.accountNameOwner}>
+                  {account.accountNameOwner}
+                </option>
+              ))}
+            </select>
+          </li>
 
         </ul>
         <ul className="navbar-nav ml-auto">
