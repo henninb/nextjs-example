@@ -56,7 +56,6 @@ export default function Navbar() {
             </Link>
           </li>
 
-
         <li className="nav-item">
         <div className="nav-link">
           <select

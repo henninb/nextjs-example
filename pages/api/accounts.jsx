@@ -1,6 +1,5 @@
-export default (_request, response) => {
-  // Replace with your actual data source or database query
-  const data = [
+export default async(_request, response) => {
+  const data1 = [
 
     {
         "accountId": 1057,
@@ -116,6 +115,20 @@ export default (_request, response) => {
 
   ];
 
-  response.status(200).json(data);
+
+  try {
+    //const account = request.url.split('/').pop();
+    // Make the fetch request to your API
+    const apiUrl = `http://192.168.10.10:8443/account/select/active`;
+    const data = await fetch(apiUrl).then((response) => response.json());
+
+    // Return the fetched data as the response
+    response.status(200).json(data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
+
+  //response.status(200).json(data1);
 };
 
