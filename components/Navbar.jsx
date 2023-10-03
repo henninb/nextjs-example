@@ -5,24 +5,24 @@ import { useRouter } from 'next/router';
 export default function Navbar() {
   const [selectedAccount, setSelectedAccount] = useState('');
   const [data, setData] = useState([]); // Your spreadsheet data
-  const [filteredData, setFilteredData] = useState(data);
+  //const [filteredData, setFilteredData] = useState(data);
   const router = useRouter();
 
   const handleAccountChange = (event) => {
     setSelectedAccount(event.target.value);
     console.log('test: ' + event.target.value)
-    router.push(`/transactions?account=${event.target.value}`);
+    router.push(`/transactions?accountNameOwner=${event.target.value}`);
   };
 
-  const handleFilterChange = (event) => {
-    const filterText = event.target.value.toLowerCase();
+  // const handleFilterChange = (event) => {
+  //   const filterText = event.target.value.toLowerCase();
 
-    // Filter the data based on the typed substring
-    const filteredAccounts = data.filter((account) =>
-      account.accountNameOwner.toLowerCase().includes(filterText)
-    );
-    setFilteredData(filteredAccounts);
-  }
+  //   // Filter the data based on the typed substring
+  //   const filteredAccounts = data.filter((account) =>
+  //     account.accountNameOwner.toLowerCase().includes(filterText)
+  //   );
+  //   setFilteredData(filteredAccounts);
+  // }
 
   useEffect(() => {
   fetch(`/api/accounts`)

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {v4 as uuidv4} from 'uuid';
+import { useRouter } from 'next/router';
 import AddRowOverlay from '../components/AddRowOverlay'
 
-//export default function Transactions() {
-export default function Transactions({account}) {
+export default function Transactions() {
+//export default function Transactions({accountNameOwner="test_brian"}) {
   const [data, setData] = useState([]); // Your spreadsheet data
   const [selectedRows, setSelectedRows] = useState([]);
   const [areButtonsVisible, setAreButtonsVisible] = useState(false);
@@ -14,14 +15,18 @@ export default function Transactions({account}) {
   const [rowsPerPage, setRowsPerPage] = useState(50);
   const [showAddRowOverlay, setShowAddRowOverlay] = useState(false);
 
+  const router = useRouter();
+  const { accountNameOwner } = router.query;
+
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
   const account = 'chase-amazon_brian';
-  fetch(`/api/transactions/${account}`)
+  console.log('accountNameOwner: '+ accountNameOwner);
+  fetch(`/api/transactions/${accountNameOwner}`)
   .then((response) => response.json())
   .then((data) => setData(data))
   .catch((error) => console.error('Error fetching data:', error));
-  }, [account]);
+  }, [accountNameOwner]);
 
   useEffect(() => {
     setAreButtonsVisible(selectedRows.length > 0);
