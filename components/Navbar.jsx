@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 export default function Navbar() {
   const [selectedAccount, setSelectedAccount] = useState('');
   const [data, setData] = useState([]); // Your spreadsheet data
+  const [filteredData, setFilteredData] = useState(data);
   const router = useRouter();
 
   const handleAccountChange = (event) => {
@@ -12,6 +13,16 @@ export default function Navbar() {
     console.log('test: ' + event.target.value)
     router.push(`/transactions?account=${event.target.value}`);
   };
+
+  const handleFilterChange = (event) => {
+    const filterText = event.target.value.toLowerCase();
+
+    // Filter the data based on the typed substring
+    const filteredAccounts = data.filter((account) =>
+      account.accountNameOwner.toLowerCase().includes(filterText)
+    );
+    setFilteredData(filteredAccounts);
+  }
 
   useEffect(() => {
   fetch(`/api/accounts`)
@@ -75,6 +86,31 @@ export default function Navbar() {
               ))}
             </select>
           </li>
+
+{/* 
+<li className="nav-item">
+      <input
+        type="text"
+        placeholder="Search for an Account"
+        onChange={handleFilterChange}
+        className="dracula-input"
+      />
+      <select
+        value={selectedAccount}
+        onChange={handleAccountChange}
+        className="dracula-input"
+      >
+        <option value="" disabled>
+          Select an Account
+        </option>
+        {filteredData.map((account) => (
+          <option key={account.accountId} value={account.accountNameOwner}>
+            {account.accountNameOwner}
+          </option>
+        ))}
+      </select>
+    </li> */}
+
 
         </ul>
         <ul className="navbar-nav ml-auto">
