@@ -47,6 +47,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     }, [onClose]);
 
   return (
+    <section>
     <div className="overlay">
       <div className="overlay-content">
         <h2>Add Row</h2>
@@ -57,6 +58,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="date"
               name="date"
+              placeholder="date"
               value={formData.date}
               onChange={handleInputChange}
               className="dracula-input"
@@ -68,6 +70,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="description"
               name="description"
+              placeholder="description"
               value={formData.description}
               onChange={handleInputChange}
               className="dracula-input"
@@ -79,6 +82,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="category"
               name="category"
+              placeholder="category"
               value={formData.category}
               onChange={handleInputChange}
               className="dracula-input"
@@ -90,6 +94,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="amount"
               name="amount"
+              placeholder="amount"
               value={formData.amount}
               onChange={handleInputChange}
               className="dracula-input"
@@ -101,6 +106,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="state"
               name="state"
+              placeholder="state"
               value={formData.state}
               onChange={handleInputChange}
               className="dracula-input"
@@ -112,6 +118,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="type"
               name="type"
+              placeholder="type"
               value={formData.type}
               onChange={handleInputChange}
               className="dracula-input"
@@ -123,6 +130,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="recurring"
               name="recurring"
+              placeholder="reocurring"
               value={formData.recurring}
               onChange={handleInputChange}
               className="dracula-input"
@@ -134,6 +142,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="text"
               id="notes"
               name="notes"
+              placeholder="notes"
               value={formData.notes}
               onChange={handleInputChange}
               className="dracula-input"
@@ -146,5 +155,6 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
         </form>
       </div>
     </div>
+    </section>
   );
 }

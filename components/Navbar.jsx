@@ -63,12 +63,6 @@ export default function Navbar() {
               <div className="nav-link">Configure</div>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link href="/transactions" passHref>
-              <div className="nav-link">Transactions</div>
-            </Link>
-          </li>
-
 
           <li className="nav-item">
             <select
