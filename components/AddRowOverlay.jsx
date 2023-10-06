@@ -28,26 +28,24 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     onClose();
   };
 
+  // Add an event listener for the 'keydown' event
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.keyCode === 27) {
+        onClose();
+      }
+    };
 
-    // Add an event listener for the 'keydown' event
-    useEffect(() => {
-      const handleKeyDown = (e) => {
-        if (e.keyCode === 27) { // Check if the pressed key is the Escape key (key code 27)
-          onClose(); // Close the overlay
-        }
-      };
-  
-      // Add the event listener when the component mounts
-      document.addEventListener('keydown', handleKeyDown);
-  
-      // Remove the event listener when the component unmounts
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-      };
-    }, [onClose]);
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
   return (
-    <section>
     <div className="overlay">
       <div className="overlay-content">
         <h2>Add Row</h2>
@@ -149,12 +147,15 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             />
           </div>
           <div className="button-container">
-            <button type="button" onClick={handleSave} className="btn btn-primary">Save</button>
-            <button type="button" onClick={onClose} className="btn btn-secondary">Cancel</button>
+            <button type="button" onClick={handleSave} className="btn btn-primary">
+              Save
+            </button>
+            <button type="button" onClick={onClose} className="btn btn-secondary">
+              Cancel
+            </button>
           </div>
         </form>
       </div>
     </div>
-    </section>
   );
 }

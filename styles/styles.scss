@@ -228,3 +228,14 @@ tbody tr:hover {
     justify-content: left;
     align-items: center;
   }
+
+
+  .form-group {
+    margin-bottom: 10px; /* Add spacing between form groups */
+    width: 100%; /* Ensure the input takes the full width of its container */
+  text-align: right;
+  }
+  
+  .label {
+    font-weight: bold; /* Style labels to make them bold */
+  }
