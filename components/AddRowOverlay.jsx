@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
-    date: '10/06/2023',
+    transactionDate: '10/06/2023',
     description: '',
     category: '',
-    amount: '$0.00',
-    state: 'cleared',
-    type: 'undefined',
-    recurring: 'onetime',
+    amount: 0.00,
+    transactionState: 'cleared',
+    transactionType: 'undefined',
+    reoccurringType: 'onetime',
     notes: '',
   };
 
@@ -78,7 +78,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               type="date"
               id="date"
               name="date"
-              value={formData.date}
+              value={formData.transactionDate}
               onChange={handleInputChange}
               className="dracula-input"
             />
@@ -121,18 +121,22 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               className="dracula-input"
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="state">State:</label>
-            <input
-              type="text"
+            <select
               id="state"
               name="state"
-              placeholder="state"
-              value={formData.state}
+              value={formData.transactionState}
               onChange={handleInputChange}
               className="dracula-input"
-            />
+            >
+              <option value="future">Future</option>
+              <option value="outstanding">Outstanding</option>
+              <option value="cleared">Cleared</option>
+            </select>
           </div>
+
           <div className="form-group">
             <label htmlFor="type">Type:</label>
             <input
@@ -140,7 +144,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               id="type"
               name="type"
               placeholder="type"
-              value={formData.type}
+              value={formData.transactionType}
               onChange={handleInputChange}
               className="dracula-input"
             />
@@ -152,7 +156,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               id="recurring"
               name="recurring"
               placeholder="reocurring"
-              value={formData.recurring}
+              value={formData.reoccurringType}
               onChange={handleInputChange}
               className="dracula-input"
             />
@@ -170,10 +174,10 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             />
           </div>
           <div className="button-container">
-            <button type="button" onClick={handleSave} className="btn btn-primary">
+            <button type="button" onClick={handleSave} className="save-button">
               Save
             </button>
-            <button type="button" onClick={onClose} className="btn btn-secondary">
+            <button type="button" onClick={onClose} className="cancel-button">
               Cancel
             </button>
           </div>

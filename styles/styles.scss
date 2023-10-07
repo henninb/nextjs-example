@@ -130,6 +130,8 @@ tbody tr:hover {
     text-align: center;
   }
   
+  .save-button,
+  .cancel-button,
   .reset-button,
   .pagination-button,
   .move-button,
@@ -145,6 +147,8 @@ tbody tr:hover {
     transition: background-color 0.3s, color 0.3s;
   }
   
+  .save-button:hover,
+  .cancel-button:hover,
   .reset-button:hover,
   .move-button:hover,
   .add-button:hover,
