@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
-    date: '',
+    date: '10/06/2023',
     description: '',
     category: '',
-    amount: '',
-    state: '',
-    type: '',
-    recurring: '',
+    amount: '$0.00',
+    state: 'cleared',
+    type: 'undefined',
+    recurring: 'onetime',
     notes: '',
   };
 
@@ -21,6 +21,27 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
       [name]: value,
     }));
   };
+
+  // const handleCurrencyChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]: name === 'amount' ? formatCurrencyInput(value) : value,
+  //   }));
+  // };
+
+  // const formatCurrencyInput = (inputValue) => {
+  //   // Remove any non-numeric characters from the input
+  //   const numericValue = inputValue.replace(/[^0-9.]/g, '');
+
+  //   // Format the numeric value as currency (e.g., 12345.67 -> "$12,345.67")
+  //   const formattedValue = parseFloat(numericValue).toLocaleString('en-US', {
+  //     style: 'currency',
+  //     currency: 'USD', // Change to your desired currency code
+  //   });
+
+  //   return formattedValue;
+  // };
 
   const handleSave = () => {
     // Pass the form data to the parent component
@@ -52,15 +73,17 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
         <form>
           <div className="form-group">
             <label htmlFor="date">Date:</label>
+
             <input
-              type="text"
+              type="date"
               id="date"
               name="date"
-              placeholder="date"
               value={formData.date}
               onChange={handleInputChange}
               className="dracula-input"
             />
+
+
           </div>
           <div className="form-group">
             <label htmlFor="description">Description:</label>

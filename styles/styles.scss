@@ -214,8 +214,6 @@ tbody tr:hover {
     box-shadow: 0 0 0 2px #bd93f9;
   }
 
-
-
   .overlay {
     position: absolute;
     top: 0;
@@ -233,9 +231,9 @@ tbody tr:hover {
   .form-group {
     margin-bottom: 10px; /* Add spacing between form groups */
     width: 100%; /* Ensure the input takes the full width of its container */
-  text-align: right;
+    text-align: right;
   }
   
   .label {
-    font-weight: bold; /* Style labels to make them bold */
+    font-weight: bold;
   }
