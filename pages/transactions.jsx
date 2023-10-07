@@ -257,7 +257,7 @@ export default function Transactions() {
               {renderEditableCell('amount', formatCurrency(row.amount), row.guid)}
               {renderEditableCell('state', row.transactionState, row.guid)}
               {renderEditableCell('type', row.transactionType, row.guid)}
-              {renderEditableCell('recurring', row.recurringType, row.guid)}
+              {renderEditableCell('recurring', row.reoccurringType, row.guid)}
               {renderEditableCell('notes', row.notes, row.guid)}
             </tr>
           ))}
