@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import NumberFormat from 'react-number-format';
+
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
     transactionDate: new Date().toISOString().slice(0, 10),
     description: '',
     category: '',
-    amount: 0.00,
+    amount: '',
     transactionState: 'cleared',
     transactionType: 'undefined',
     reoccurringType: 'onetime',
@@ -16,11 +18,17 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name)
-    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+  };
+
+  const handleAmountChange = (values) => {
+    const { value } = values;
+    setFormData((prevData) => ({
+      ...prevData,
+      amount: value,
     }));
   };
 
@@ -47,14 +55,6 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     };
   }, [onClose]);
 
-// Function to handle onBlur event
-function handleDateBlur(event) {
-  const { name, value } = event.target;
-
-  console.log(value)
-  console.log(name)
-}
-
   return (
     <div className="overlay">
       <div className="overlay-content">
@@ -62,7 +62,6 @@ function handleDateBlur(event) {
         <form>
           <div className="form-group">
             <label htmlFor="date">Date:</label>
-
             <input
               type="date"
               id="date"
@@ -71,7 +70,6 @@ function handleDateBlur(event) {
               onChange={handleInputChange}
               className="dracula-input"
             />
-
           </div>
           <div className="form-group">
             <label htmlFor="description">Description:</label>
@@ -105,8 +103,11 @@ function handleDateBlur(event) {
               name="amount"
               placeholder="amount"
               value={formData.amount}
-              onChange={handleInputChange}
+              onValueChange={handleAmountChange} // Handle formatted amount input
               className="dracula-input"
+              thousandSeparator={true}
+              prefix="$"
+              decimalScale={2}
             />
           </div>
 
@@ -127,7 +128,6 @@ function handleDateBlur(event) {
 
           <div className="form-group">
             <label htmlFor="type">Type:</label>
-
             <select
               id="state"
               name="transactionType"
@@ -139,7 +139,6 @@ function handleDateBlur(event) {
               <option value="income">Income</option>
               <option value="transfer">Transfer</option>
             </select>
-
           </div>
           <div className="form-group">
             <label htmlFor="recurring">Recurring:</label>
