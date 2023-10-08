@@ -127,15 +127,19 @@ function handleDateBlur(event) {
 
           <div className="form-group">
             <label htmlFor="type">Type:</label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              placeholder="type"
+
+            <select
+              id="state"
+              name="transactionType"
               value={formData.transactionType}
               onChange={handleInputChange}
               className="dracula-input"
-            />
+            >
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+              <option value="transfer">Transfer</option>
+            </select>
+
           </div>
           <div className="form-group">
             <label htmlFor="recurring">Recurring:</label>
