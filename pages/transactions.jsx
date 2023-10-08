@@ -188,7 +188,40 @@ export default function Transactions() {
   const handleAddRow = (newRowData) => {
     // Add the new row to your data array
     newRowData.guid = uuidv4()
+    newRowData.accountNameOwner = accountNameOwner;
+    newRowData.activeState = true;
     setData((prevData) => [...prevData, newRowData]);
+    console.log(newRowData);
+    console.log('post call to add a new row using fetch http://192.168.10.10:8443/transaction/insert');
+  
+  
+
+
+    fetch('http://192.168.10.10:8443/transaction/insert', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newRowData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Handle the response from the server
+        console.log('Data added to the database:', data);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the fetch
+        console.error('Error:', error);
+      });
+
+
+
+  
   };
 
   const handleMove = () => {

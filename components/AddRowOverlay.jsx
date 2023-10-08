@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import NumberFormat from 'react-number-format';
-
+import { NumericFormat } from 'react-number-format';
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
     transactionDate: new Date().toISOString().slice(0, 10),
+    //transactionDate: new Date().toLocaleDateString().slice(0, 10),
     //transactionDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
     description: '',
     category: '',
-    amount: '',
+    amount: '0.00',
     transactionState: 'outstanding',
     transactionType: 'expense',
     reoccurringType: 'onetime',
@@ -35,7 +35,17 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
 
   const handleSave = () => {
     // Pass the form data to the parent component
-    onAddRow(formData);
+
+    // Convert the amount from string to decimal
+    const decimalAmount = parseFloat(formData.amount);
+  
+    // Update formData with the decimal amount
+    const updatedFormData = {
+      ...formData,
+      amount: decimalAmount,
+    };
+
+    onAddRow(updatedFormData);
     onClose();
   };
 
@@ -98,13 +108,12 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
           </div>
           <div className="form-group">
             <label htmlFor="amount">Amount:</label>
-            <input
-              type="text"
+            <NumericFormat
               id="amount"
               name="amount"
               placeholder="amount"
               value={formData.amount}
-              onValueChange={handleAmountChange} // Handle formatted amount input
+              onValueChange={handleAmountChange}
               className="dracula-input"
               thousandSeparator={true}
               prefix="$"
