@@ -5,11 +5,12 @@ import NumberFormat from 'react-number-format';
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
     transactionDate: new Date().toISOString().slice(0, 10),
+    //transactionDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
     description: '',
     category: '',
     amount: '',
-    transactionState: 'cleared',
-    transactionType: 'undefined',
+    transactionState: 'outstanding',
+    transactionType: 'expense',
     reoccurringType: 'onetime',
     notes: '',
   };
@@ -138,6 +139,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
               <option value="expense">Expense</option>
               <option value="income">Income</option>
               <option value="transfer">Transfer</option>
+              <option value="undefined">Undefined</option>
             </select>
           </div>
           <div className="form-group">
