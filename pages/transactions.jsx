@@ -190,14 +190,13 @@ export default function Transactions() {
     newRowData.guid = uuidv4()
     newRowData.accountNameOwner = accountNameOwner;
     newRowData.activeState = true;
+    newRowData.accountType = "credit"
+   // newRowData.accountId = 1001;
     setData((prevData) => [...prevData, newRowData]);
     console.log(newRowData);
-    console.log('post call to add a new row using fetch http://192.168.10.10:8443/transaction/insert');
-  
-  
 
 
-    fetch('http://192.168.10.10:8443/transaction/insert', {
+    fetch(`/api/transaction/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -208,6 +207,7 @@ export default function Transactions() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        console.log('success')
         return response.json();
       })
       .then((data) => {
