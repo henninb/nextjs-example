@@ -1,243 +1,240 @@
 :root {
-    --dracula-bg: #282a36;
-    --dracula-fg: #f8f8f2;
-    --dracula-comment: #6272a4;
-    --dracula-cyan: #8be9fd;
-    --dracula-green: #50fa7b;
-    --dracula-orange: #ffb86c;
-    --dracula-pink: #ff79c6;
-    --dracula-purple: #bd93f9;
-    --dracula-red: #ff5555;
-    --dracula-yellow: #f1fa8c;
+  --dracula-bg: #282a36;
+  --dracula-fg: #f8f8f2;
+  --dracula-comment: #6272a4;
+  --dracula-cyan: #8be9fd;
+  --dracula-green: #50fa7b;
+  --dracula-orange: #ffb86c;
+  --dracula-pink: #ff79c6;
+  --dracula-purple: #bd93f9;
+  --dracula-red: #ff5555;
+  --dracula-yellow: #f1fa8c;
 }
 
 /* General Styles */
 body {
-    background-color: var(--dracula-bg);
-    color: var(--dracula-fg);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: var(--dracula-bg);
+  color: var(--dracula-fg);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /* Styles for the navbar */
 .navbar {
-    background-color: var(--dracula-bg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid var(--dracula-comment);
+  background-color: var(--dracula-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--dracula-comment);
 }
 
 .navbar-toggler {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .navbar-toggler-icon {
-    width: 30px;
-    height: 3px;
-    background-color: var(--dracula-fg);
-    display: block;
-    margin: 4px auto;
+  width: 30px;
+  height: 3px;
+  background-color: var(--dracula-fg);
+  display: block;
+  margin: 4px auto;
 }
 
 .navbar-collapse {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .navbar-nav {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-    flex-direction: row;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
 }
 
 .nav-item {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 .nav-link {
-    text-decoration: none;
-    color: var(--dracula-fg);
+  text-decoration: none;
+  color: var(--dracula-fg);
 }
 
 @media (max-width: 768px) {
-    .navbar-toggler {
-        display: block;
-    }
+  .navbar-toggler {
+      display: block;
+  }
 
-    .nav-item {
-        margin: 10px 0;
-    }
+  .nav-item {
+      margin: 10px 0;
+  }
 
-    .navbar-nav.show {
-        display: flex;
-    }
+  .navbar-nav.show {
+      display: flex;
+  }
 }
 
 /* Table Styles */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1em 0;
-    font-size: 14px;
-    background-color: var(--dracula-bg);
-    color: var(--dracula-fg);
-    border: 1px solid var(--dracula-comment);
-    text-transform: uppercase;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 14px;
+  background-color: var(--dracula-bg);
+  color: var(--dracula-fg);
+  border: 1px solid var(--dracula-comment);
+  text-transform: uppercase;
 }
 
 th, td {
-    padding: 8px 12px;
-    border: 1px solid var(--dracula-comment);
-    white-space: nowrap; /* Prevent text wrapping */
+  padding: 8px 12px;
+  border: 1px solid var(--dracula-comment);
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 th {
-    background-color: var(--dracula-bg);
-    color: var(--dracula-fg);
+  background-color: var(--dracula-bg);
+  color: var(--dracula-fg);
 }
 
 /* Alternating Row Colors (including header row) */
 tr:nth-child(even) {
-    background-color: var(--dracula-comment);
+  background-color: var(--dracula-comment);
 }
 
 tbody tr:nth-child(odd) {
-    background-color: var(--dracula-purple);
+  background-color: var(--dracula-purple);
 }
 
 tbody tr:hover {
-  background-color: var(--dracula-pink);
-  color: var(--dracula-fg);
+background-color: var(--dracula-pink);
+color: var(--dracula-fg);
 }
 
 /* CSS for Dracula-themed buttons */
 .button-container {
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .save-button,
-  .cancel-button,
-  .reset-button,
-  .pagination-button,
-  .move-button,
-  .add-button,
-  .delete-button {
-    background-color: #44475a; /* Background color */
-    color: #f8f8f2; /* Text color */
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .save-button:hover,
-  .cancel-button:hover,
-  .reset-button:hover,
-  .move-button:hover,
-  .add-button:hover,
-  .pagination-button:hover,
-  .delete-button:hover {
-    background-color: #6272a4; /* Background color on hover */
-  }
+  margin-top: 10px;
+  text-align: center;
+}
 
-  .pagination-button.disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+.save-button,
+.cancel-button,
+.reset-button,
+.pagination-button,
+.move-button,
+.add-button,
+.delete-button {
+  background-color: #44475a; /* Background color */
+  color: #f8f8f2; /* Text color */
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
 
+.save-button:hover,
+.cancel-button:hover,
+.reset-button:hover,
+.move-button:hover,
+.add-button:hover,
+.pagination-button:hover,
+.delete-button:hover {
+  background-color: #6272a4; /* Background color on hover */
+}
 
-  /* pagination */
+.pagination-button.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* pagination */
 .pagination-container {
-    text-align: center;
-    margin-top: 20px;
-  }
+  text-align: center;
+  margin-top: 20px;
+}
   
-  .rows-per-page-selector {
-    text-align: right;
-    margin-top: 10px;
-  }
-  
-  /* Style the select element */
-  .rows-per-page-selector select {
-    background-color: #282a36;
-    color: #f8f8f2;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .rows-per-page-selector select:hover {
-    background-color: #44475a;
-  }
-  
-  /* Style the label (optional) */
-  .rows-per-page-selector label {
-    color: #f8f8f2;
-    margin-right: 10px;
-  }
-  
-  /* Style the options (optional) */
-  .rows-per-page-selector select option {
-    background-color: #282a36;
-    color: #f8f8f2;
-  }
+.rows-per-page-selector {
+  text-align: right;
+  margin-top: 10px;
+}
 
+/* Style the select element */
+.rows-per-page-selector select {
+  background-color: #282a36;
+  color: #f8f8f2;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-  /* Dracula Theme */
+.rows-per-page-selector select:hover {
+  background-color: #44475a;
+}
+
+/* Style the label (optional) */
+.rows-per-page-selector label {
+  color: #f8f8f2;
+  margin-right: 10px;
+}
+  
+/* Style the options (optional) */
+.rows-per-page-selector select option {
+  background-color: #282a36;
+  color: #f8f8f2;
+}
+
+/* Dracula Theme */
 .dracula-input {
-    background-color: #282a36;
-    color: #f8f8f2;
-    border: 1px solid #44475a;
-    border-radius: 4px;
-    padding: 8px;
-    margin: 4px;
-    font-size: 14px;
-  }
-  
-  .dracula-input:focus {
-    outline: none;
-    border-color: #bd93f9;
-    box-shadow: 0 0 0 2px #bd93f9;
-  }
+  background-color: #282a36;
+  color: #f8f8f2;
+  border: 1px solid #44475a;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px;
+  font-size: 14px;
+}
 
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
-    z-index: 999; /* Make sure it's above other elements */
-    display: flex;
-    justify-content: left;
-    align-items: center;
-  }
+.dracula-input:focus {
+  outline: none;
+  border-color: #bd93f9;
+  box-shadow: 0 0 0 2px #bd93f9;
+}
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
+  z-index: 999; /* Make sure it's above other elements */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
 
-  .form-group {
-    margin-bottom: 10px; /* Add spacing between form groups */
-    width: 100%; /* Ensure the input takes the full width of its container */
-    text-align: right;
-  }
-  
-  .label {
-    font-weight: bold;
-  }
+.form-group {
+  margin-bottom: 10px; /* Add spacing between form groups */
+  width: 100%; /* Ensure the input takes the full width of its container */
+  text-align: right;
+}
+
+.label {
+  font-weight: bold;
+}

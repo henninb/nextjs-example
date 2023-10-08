@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function AddRowOverlay({ onAddRow, onClose }) {
   const initialFormData = {
-    transactionDate: '10/06/2023',
+    transactionDate: new Date().toISOString().slice(0, 10),
     description: '',
     category: '',
     amount: 0.00,
@@ -16,32 +16,13 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name)
+    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-
-  // const handleCurrencyChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: name === 'amount' ? formatCurrencyInput(value) : value,
-  //   }));
-  // };
-
-  // const formatCurrencyInput = (inputValue) => {
-  //   // Remove any non-numeric characters from the input
-  //   const numericValue = inputValue.replace(/[^0-9.]/g, '');
-
-  //   // Format the numeric value as currency (e.g., 12345.67 -> "$12,345.67")
-  //   const formattedValue = parseFloat(numericValue).toLocaleString('en-US', {
-  //     style: 'currency',
-  //     currency: 'USD', // Change to your desired currency code
-  //   });
-
-  //   return formattedValue;
-  // };
 
   const handleSave = () => {
     // Pass the form data to the parent component
@@ -66,6 +47,14 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
     };
   }, [onClose]);
 
+// Function to handle onBlur event
+function handleDateBlur(event) {
+  const { name, value } = event.target;
+
+  console.log(value)
+  console.log(name)
+}
+
   return (
     <div className="overlay">
       <div className="overlay-content">
@@ -77,12 +66,11 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             <input
               type="date"
               id="date"
-              name="date"
+              name="transactionDate"
               value={formData.transactionDate}
               onChange={handleInputChange}
               className="dracula-input"
             />
-
 
           </div>
           <div className="form-group">
@@ -126,7 +114,7 @@ export default function AddRowOverlay({ onAddRow, onClose }) {
             <label htmlFor="state">State:</label>
             <select
               id="state"
-              name="state"
+              name="transactionState"
               value={formData.transactionState}
               onChange={handleInputChange}
               className="dracula-input"
