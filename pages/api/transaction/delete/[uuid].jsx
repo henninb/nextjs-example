@@ -6,12 +6,13 @@ export default async (request, response) => {
     const uuid = request.url.split('/').pop();
 
     console.log(uuid);
+    console.log(`${apiUrl}/${uuid}`);
 
-    const fetchResponse = await fetch(`apiUrl/$uuid`, {
+    const fetchResponse = await fetch(`${apiUrl}/${uuid}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
       //body: JSON.stringify(request.body),
     });
 
@@ -22,7 +23,7 @@ export default async (request, response) => {
       return;
     }
 
-    const data = await fetchResponse.json();
+    const data = await fetchResponse.text();
     console.log('Data deleted from the database:', data);
     response.status(200).json(data);
   } catch (error) {
