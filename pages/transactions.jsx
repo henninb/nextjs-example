@@ -186,13 +186,11 @@ export default function Transactions() {
   };
 
   const handleAddRow = (newRowData) => {
-    // Add the new row to your data array
-    newRowData.guid = uuidv4()
+    newRowData.guid = uuidv4();
     newRowData.accountNameOwner = accountNameOwner;
     newRowData.activeState = true;
-    newRowData.accountType = "credit"
-    setData((prevData) => [...prevData, newRowData]);
-
+    newRowData.accountType = "credit";
+    
     fetch(`/api/transaction/add`, {
       method: 'POST',
       headers: {
@@ -200,28 +198,25 @@ export default function Transactions() {
       },
       body: JSON.stringify(newRowData),
     })
-      .then((response) => {
-        if (!response.ok) {
-          console.log("response is not ok")
-          throw new Error('Network response was not ok');
-        }
-        // console.log('success')
-        // return response.json();
-      })
-      .then((data) => {
-        // Handle the response from the server
-        console.log('Data added to the database:', data);
-        
-        console.log(newRowData);
-      })
-      .catch((error) => {
-        console.log('error')
-        // Handle any errors that occurred during the fetch
-        console.error('Error:', error);
-      });
-
-      console.log('end of handleAddRow')
-  
+    .then(async (response) => {
+      if (!response.ok) {
+        const errorMessage = await response.json(); // Parse the error message from the server
+        console.log("response is not ok:", errorMessage.error);
+        throw new Error(errorMessage.error);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the response from the server
+      console.log('Data added to the database:', data);
+      console.log(newRowData);
+      setData((prevData) => [...prevData, newRowData]);
+    })
+    .catch((error) => {
+      console.log('error:', error.message);
+      // Handle any errors that occurred during the fetch
+      console.error('Error:', error);
+    });
   };
 
   const handleMove = () => {
