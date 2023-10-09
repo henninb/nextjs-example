@@ -21,8 +21,9 @@ export default function Transactions() {
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
-    const account = 'chase-amazon_brian';
+    setIsLoading(true);
     console.log('accountNameOwner: '+ accountNameOwner);
+    console.log(isLoading)
     fetch(`/api/transactions/${accountNameOwner}`)
     .then((response) => response.json())
     .then((data) => {
@@ -193,7 +194,6 @@ export default function Transactions() {
     }
   };
 
-
   // Function to slice the data based on current page and rows per page
   const paginatedData = data.slice(
     (currentPage - 1) * rowsPerPage,
@@ -260,7 +260,15 @@ export default function Transactions() {
   };
 
   return (
+
     <div>
+    {isLoading ? (
+      <div className="spinner">
+        <p>Loading...</p>
+      </div>
+    ) : (
+    <div>
+      
       <div className="button-container">
         {areButtonsVisible ? (
           <>
@@ -332,7 +340,6 @@ export default function Transactions() {
         </label>
       </div>
       
-      {/* Pagination controls */}
       <div className="pagination-container">
         <button
           className={`pagination-button ${currentPage === 1 ? 'disabled' : ''}`}
@@ -354,8 +361,10 @@ export default function Transactions() {
       </div>
 
       </>
-)}
+    )}
 
+    </div>
+    )}
     </div>
   );
 }
