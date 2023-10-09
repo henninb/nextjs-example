@@ -154,56 +154,54 @@ export default async(request, response) => {
     "activeStatus": true,
     "reoccurringType": "onetime"
   },
-    {
-      transactionId: 22541,
-      guid: '5290e755-db72-41d3-894e-cdd260a2d7b3',
-      accountId: 1057,
-      accountType: 'debit',
-      transactionType: 'undefined',
-      accountNameOwner: 'amazon_brian',
-      transactionDate: '2020-09-07',
-      description: 'citi',
-      category: 'online',
-      amount: 3.00,
-      transactionState: 'cleared',
-      activeStatus: true,
-      reoccurringType: 'onetime',
-    },
-    {
-      transactionId: 22543,
-      guid: '5290e755-db72-41d3-894e-cdd260a2d7b4',
-      accountId: 1057,
-      accountType: 'debit',
-      transactionType: 'undefined',
-      accountNameOwner: 'amazon_brian',
-      transactionDate: '2020-09-07',
-      description: 'my description',
-      category: 'online',
-      amount: 4.00,
-      transactionState: 'cleared',
-      activeStatus: true,
-      reoccurringType: 'onetime',
-    },
+  {
+    "transactionId": 22541,
+    "guid": '5290e755-db72-41d3-894e-cdd260a2d7b3',
+    "accountId": 1057,
+    "accountType": 'debit',
+    "transactionType": 'undefined',
+    "accountNameOwner": 'amazon_brian',
+    "transactionDate": '2020-09-07',
+    "description": 'citi',
+    "category": 'online',
+    "amount": 3.00,
+    "transactionState": 'cleared',
+    "activeStatus": true,
+    "reoccurringType": 'onetime',
+  },
+  {
+    "transactionId": 22543,
+    "guid": '5290e755-db72-41d3-894e-cdd260a2d7b4',
+    "accountId": 1057,
+    "accountType": 'debit',
+    "transactionType": 'undefined',
+    "accountNameOwner": 'amazon_brian',
+    "transactionDate": '2020-09-07',
+    "description": 'my description',
+    "category": 'online',
+    "amount": 4.00,
+    "transactionState": 'cleared',
+    "activeStatus": true,
+    "reoccurringType": 'onetime',
+  },
   ];
 
   
-    if (request.url.startsWith('/api/transactions')) {
+  if (request.url.startsWith('/api/transactions')) {
 
-      try {
-        const account = request.url.split('/').pop();
-        // Make the fetch request to your API
-        const apiUrl = `http://192.168.10.10:8443/transaction/account/select/${account}`;
-        const data = await fetch(apiUrl).then((response) => response.json());
-  
-        // Return the fetched data as the response
-        response.status(200).json(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        response.status(500).json({ error: 'Internal Server Error' });
-      }
-    } else {
-      response.status(404).json({ error: 'Not Found' });
+    try {
+      const account = request.url.split('/').pop();
+      // Make the fetch request to your API
+      const apiUrl = `http://192.168.10.10:8443/transaction/account/select/${account}`;
+      const data = await fetch(apiUrl).then((response) => response.json());
+      response.status(200).json(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      response.status(500).json({ error: 'Internal Server Error' });
     }
+  } else {
+    response.status(404).json({ error: 'Not Found' });
+  }
 
 };
 

@@ -191,10 +191,7 @@ export default function Transactions() {
     newRowData.accountNameOwner = accountNameOwner;
     newRowData.activeState = true;
     newRowData.accountType = "credit"
-   // newRowData.accountId = 1001;
     setData((prevData) => [...prevData, newRowData]);
-    console.log(newRowData);
-
 
     fetch(`/api/transaction/add`, {
       method: 'POST',
@@ -205,22 +202,25 @@ export default function Transactions() {
     })
       .then((response) => {
         if (!response.ok) {
+          console.log("response is not ok")
           throw new Error('Network response was not ok');
         }
-        console.log('success')
-        return response.json();
+        // console.log('success')
+        // return response.json();
       })
       .then((data) => {
         // Handle the response from the server
         console.log('Data added to the database:', data);
+        
+        console.log(newRowData);
       })
       .catch((error) => {
+        console.log('error')
         // Handle any errors that occurred during the fetch
         console.error('Error:', error);
       });
 
-
-
+      console.log('end of handleAddRow')
   
   };
 
