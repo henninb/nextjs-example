@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 
 export default function Navbar() {
   const [selectedAccount, setSelectedAccount] = useState('');
-  const [data, setData] = useState([]); // Your spreadsheet data
-  //const [filteredData, setFilteredData] = useState(data);
+  const [data, setData] = useState([]); // transaction data
   const router = useRouter();
 
   const handleAccountChange = (event) => {
@@ -14,21 +13,16 @@ export default function Navbar() {
     router.push(`/transactions?accountNameOwner=${event.target.value}`);
   };
 
-  // const handleFilterChange = (event) => {
-  //   const filterText = event.target.value.toLowerCase();
-
-  //   // Filter the data based on the typed substring
-  //   const filteredAccounts = data.filter((account) =>
-  //     account.accountNameOwner.toLowerCase().includes(filterText)
-  //   );
-  //   setFilteredData(filteredAccounts);
-  // }
+  const resetAccountSelect = () => {
+    setSelectedAccount('');
+  };
 
   useEffect(() => {
-  fetch(`/api/accounts`)
-  .then((response) => response.json())
-  .then((data) => setData(data))
-  .catch((error) => console.error('Error fetching data:', error));
+    fetch(`/api/accounts`)
+    .then((response) => response.json())
+    .then((data) => setData(data))
+    .catch((error) => console.error('Error fetching data:', error));
+    resetAccountSelect(); 
   }, []);
 
   return (
@@ -66,8 +60,10 @@ export default function Navbar() {
 
           <li className="nav-item">
             <select
+              key={selectedAccount}
               value={selectedAccount}
               onChange={handleAccountChange}
+              onClick={handleAccountChange}
               className="dracula-input"
             >
               <option value="" disabled>
@@ -80,31 +76,6 @@ export default function Navbar() {
               ))}
             </select>
           </li>
-
-{/* 
-<li className="nav-item">
-      <input
-        type="text"
-        placeholder="Search for an Account"
-        onChange={handleFilterChange}
-        className="dracula-input"
-      />
-      <select
-        value={selectedAccount}
-        onChange={handleAccountChange}
-        className="dracula-input"
-      >
-        <option value="" disabled>
-          Select an Account
-        </option>
-        {filteredData.map((account) => (
-          <option key={account.accountId} value={account.accountNameOwner}>
-            {account.accountNameOwner}
-          </option>
-        ))}
-      </select>
-    </li> */}
-
 
         </ul>
         <ul className="navbar-nav ml-auto">

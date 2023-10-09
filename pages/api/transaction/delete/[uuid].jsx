@@ -2,7 +2,6 @@ export default async (request, response) => {
   const apiUrl = 'http://192.168.10.10:8443/transaction/delete';
 
   try {
-    //console.log(JSON.stringify(request.body));
     const uuid = request.url.split('/').pop();
 
     console.log(uuid);

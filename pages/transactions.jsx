@@ -149,22 +149,6 @@ export default function Transactions() {
     setAreButtonsVisible(false);
   };
 
-  // const handleDeleteRows = () => {
-  //   if (selectedRows.length === 0) {
-  //     console.log('No rows selected for deletion');
-  //     return;
-  //   }
-
-  //   const deleteRows = data.filter((row) => !selectedRows.includes(row.guid));
-  //   setData(deleteRows);
-
-  //   setSelectedRows([]); // Clear the selected rows
-  //   setAreButtonsVisible(false);
-
-  //   console.log(`Deleted rows: ${deleteRows.join(', ')}`);
-  // };
-
-
   const handleDeleteRows = async () => {
     if (selectedRows.length === 0) {
       console.log('No rows selected for deletion');
