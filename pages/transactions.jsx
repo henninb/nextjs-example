@@ -149,20 +149,59 @@ export default function Transactions() {
     setAreButtonsVisible(false);
   };
 
-  const handleDeleteRows = () => {
+  // const handleDeleteRows = () => {
+  //   if (selectedRows.length === 0) {
+  //     console.log('No rows selected for deletion');
+  //     return;
+  //   }
+
+  //   const deleteRows = data.filter((row) => !selectedRows.includes(row.guid));
+  //   setData(deleteRows);
+
+  //   setSelectedRows([]); // Clear the selected rows
+  //   setAreButtonsVisible(false);
+
+  //   console.log(`Deleted rows: ${deleteRows.join(', ')}`);
+  // };
+
+
+  const handleDeleteRows = async () => {
     if (selectedRows.length === 0) {
       console.log('No rows selected for deletion');
       return;
     }
-
+  
+    const deleteRows = data.filter((row) => selectedRows.includes(row.guid));
     const updatedData = data.filter((row) => !selectedRows.includes(row.guid));
-    setData(updatedData);
-
+  
     setSelectedRows([]); // Clear the selected rows
     setAreButtonsVisible(false);
-
-    console.log(`Deleted rows: ${selectedRows.join(', ')}`);
+  
+    const deletePromises = deleteRows.map((row) =>
+      fetch(`/api/transaction/delete/${row.guid}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Failed to delete row with UUID ${row.guid}`);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Handle any errors that occurred during the fetch
+        })
+    );
+  
+    try {
+      await Promise.all(deletePromises);
+      // If all deletions were successful, update the state with the updated data
+      setData(updatedData);
+      console.log(`Deleted rows: ${deleteRows.map((row) => row.guid).join(', ')}`);
+    } catch (error) {
+      console.error('Error deleting rows:', error.message);
+    }
   };
+
 
   // Function to slice the data based on current page and rows per page
   const paginatedData = data.slice(

@@ -5,6 +5,8 @@ export default async (request, response) => {
     //console.log(JSON.stringify(request.body));
     const uuid = request.url.split('/').pop();
 
+    console.log(uuid);
+
     const fetchResponse = await fetch(`apiUrl/$uuid`, {
       method: 'DELETE',
       headers: {
