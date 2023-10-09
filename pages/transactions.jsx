@@ -14,18 +14,25 @@ export default function Transactions() {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(50);
   const [showAddRowOverlay, setShowAddRowOverlay] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   const { accountNameOwner } = router.query;
 
   // Functions to handle data modification, row selection, and pagination
   useEffect(() => {
-  const account = 'chase-amazon_brian';
-  console.log('accountNameOwner: '+ accountNameOwner);
-  fetch(`/api/transactions/${accountNameOwner}`)
-  .then((response) => response.json())
-  .then((data) => setData(data))
-  .catch((error) => console.error('Error fetching data:', error));
+    const account = 'chase-amazon_brian';
+    console.log('accountNameOwner: '+ accountNameOwner);
+    fetch(`/api/transactions/${accountNameOwner}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setData(data);
+      setIsLoading(false);
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+      setIsLoading(false);
+    });
   }, [accountNameOwner]);
 
   useEffect(() => {
@@ -275,9 +282,7 @@ export default function Transactions() {
         )}
       </div>
 
-
-
-{showAddRowOverlay ? (
+      {showAddRowOverlay ? (
         <AddRowOverlay
           onAddRow={handleAddRow}
           onClose={() => setShowAddRowOverlay(false)}
@@ -315,9 +320,6 @@ export default function Transactions() {
         </tbody>
       </table>
 
-
-      
-      {/* Rows per page selector */}
       <div className="rows-per-page-selector">
         <label>Show
           <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
