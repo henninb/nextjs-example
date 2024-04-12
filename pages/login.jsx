@@ -1,6 +1,8 @@
 // import React from 'react';
 import React, { useState } from 'react';
-import { Auth } from "aws-amplify";
+// import { Auth } from "aws-amplify";
+import { Auth } from '@aws-amplify/auth';
+
 
 
 export default function LogIn({auth}) {
