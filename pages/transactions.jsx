@@ -130,7 +130,7 @@ export default function Transactions() {
                 type="text"
                 value={editValue}
                 onChange={(e) => setEditValue(e.target.value)}
-                onKeyDown={handleEscapeKeyPress} 
+                onKeyDown={handleEscapeKeyPress}
                 className="dracula-input"
                 onKeyPress={handleKeyPress}
                 autoFocus
@@ -162,13 +162,13 @@ export default function Transactions() {
       console.log('No rows selected for deletion');
       return;
     }
-  
+
     const deleteRows = data.filter((row) => selectedRows.includes(row.guid));
     const updatedData = data.filter((row) => !selectedRows.includes(row.guid));
-  
+
     setSelectedRows([]); // Clear the selected rows
     setAreButtonsVisible(false);
-  
+
     const deletePromises = deleteRows.map((row) =>
       fetch(`/api/transaction/delete/${row.guid}`, {
         method: 'DELETE',
@@ -183,7 +183,7 @@ export default function Transactions() {
           // Handle any errors that occurred during the fetch
         })
     );
-  
+
     try {
       await Promise.all(deletePromises);
       // If all deletions were successful, update the state with the updated data
@@ -220,7 +220,7 @@ export default function Transactions() {
     newRowData.accountNameOwner = accountNameOwner;
     newRowData.activeState = true;
     newRowData.accountType = "credit";
-    
+
     fetch(`/api/transaction/add`, {
       method: 'POST',
       headers: {
@@ -268,7 +268,7 @@ export default function Transactions() {
       </div>
     ) : (
     <div>
-      
+
       <div className="button-container">
         {areButtonsVisible ? (
           <>
@@ -284,7 +284,7 @@ export default function Transactions() {
           </>
         ) : (
             <>
-         <button className="add-button" 
+         <button className="add-button"
          onClick={() => setShowAddRowOverlay(true)}>Add</button>
          </>
         )}
@@ -339,7 +339,7 @@ export default function Transactions() {
           records per page
         </label>
       </div>
-      
+
       <div className="pagination-container">
         <button
           className={`pagination-button ${currentPage === 1 ? 'disabled' : ''}`}
